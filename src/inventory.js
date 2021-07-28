@@ -8,7 +8,7 @@ const images = importAll(require.context("./images/", false, /\.jpg$/));
 
 // Worth mapping image urls to inventory array functionally?
 
-let inventory = [
+const inventory = [
   {
     product: "Nintendo Switch",
     description:
