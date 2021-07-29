@@ -1,13 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import CartIcon from "./CartIcon";
+
+const HeaderBar = styled.header`
+  display: grid;
+  grid-template-areas: "logo basket" "search search";
+  align-items: center;
+
+  @media (min-width: 760px) {
+    grid-template-areas: "logo search search basket";
+  }
+`;
+
+const Logo = styled.h1`
+  grid-area: logo;
+`;
+
+const SearchBar = styled.form`
+  grid-area: search;
+`;
+
+const CartIcon = styled.p`
+  grid-area: basket;
+`;
 
 const Header = () => {
-  const HeaderBar = styled.header`
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  `;
   const [currentSearch, updateCurrentSearch] = useState("");
   const handleSubmit = (e) => {
     // handle submit search
@@ -15,16 +31,16 @@ const Header = () => {
   };
   return (
     <HeaderBar>
-      <h1 id="logo">CoolShop</h1>
-      <form id="search" onSubmit={handleSubmit}>
+      <Logo id="logo">CoolShop</Logo>
+      <SearchBar id="search" onSubmit={handleSubmit}>
         <input
           type="text"
           value={currentSearch}
           onChange={(e) => updateCurrentSearch(e.target.value)}
         />
         <button type="submit">Submit</button>
-      </form>
-      <CartIcon />
+      </SearchBar>
+      <CartIcon>Basket</CartIcon>
     </HeaderBar>
   );
 };

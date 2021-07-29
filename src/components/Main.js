@@ -1,10 +1,29 @@
 import React, { useState } from "react";
-import inventory from "../inventory";
 import styled from "styled-components";
+import ShopFilters from "./ShopFilters";
+import ItemTile from "./ItemTile";
+import inventory from "../inventory";
 
-const OptionsBar = styled.div`
-  display: flex;
-  justify-content: space-between;
+const TileGrid = styled.div`
+  display: grid;
+  grid-gap: 15px;
+  padding: 15px;
+  margin: 5px auto;
+
+  // TOODO: change / remove max width?
+  max-width: 1800px;
+
+  @media (min-width: 720px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media (min-width: 1200px) {
+    grid-template-columns: repeat(3, 1fr);
+  }
+
+  @media (min-width: 1800px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
 `;
 
 const Main = () => {
@@ -28,9 +47,8 @@ const Main = () => {
       }
       return thisOption.price < prevOption.price ? thisOption : prevOption;
     });
-    hasMultiplePrices
-      ? (item.lowestPrice = lowestPriceItem.price)
-      : (item.price = lowestPriceItem.price);
+    const priceType = hasMultiplePrices ? "lowestPrice" : "price";
+    item[priceType] = lowestPriceItem.price;
     item.inStock = item.options.some((option) => option.inStock);
     delete item.options;
     return item;
@@ -39,61 +57,12 @@ const Main = () => {
   return (
     <div>
       <h1>Nintendo Switch</h1>
-      {/* Extract form in to component if necessary */}
-      <OptionsBar>
-        <div id="choosecategory">
-          <label htmlFor="productcategory">Category:</label>
-          <select id="productcategory">
-            <option defaultValue="all" name="category">
-              All
-            </option>
-            <option value="consoles" name="category">
-              Consoles
-            </option>
-            <option value="games" name="category">
-              Games
-            </option>
-            <option value="accessories" name="category">
-              Accessories
-            </option>
-          </select>
-        </div>
-        <div id="toggleoos">
-          <label htmlFor="hideoos">Hide out of stock:</label>
-          <input type="checkbox" />
-        </div>
-        <div id="toggleview">
-          <label htmlFor="chooseview">View:</label>
-          <input
-            type="radio"
-            value="grid"
-            name="view"
-            checked={isGrid}
-            onChange={toggleView}
-          />
-          Grid
-          <input
-            type="radio"
-            value="list"
-            name="view"
-            checked={!isGrid}
-            onChange={toggleView}
-          />
-          List
-        </div>
-        <div id="chooseorder">
-          <label htmlFor="productorder">Order:</label>
-          <select id="productorder">
-            <option defaultValue="none">-</option>
-            <option value="cheapestfirst" name="order">
-              Price (lowest to highest)
-            </option>
-            <option value="cheapestlast" name="order">
-              Price (highest to lowest)
-            </option>
-          </select>
-        </div>
-      </OptionsBar>
+      <ShopFilters isGrid={isGrid} toggleView={toggleView} />
+      <TileGrid>
+        {storefrontInventory.map((item, i) => {
+          return <ItemTile key={`item${i + 1}`} item={item} />;
+        })}
+      </TileGrid>
     </div>
   );
 };
