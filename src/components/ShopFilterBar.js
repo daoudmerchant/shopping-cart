@@ -11,22 +11,25 @@ const OptionsBar = styled.div`
   }
 `;
 
-const ShopFilterBar = ({ isGrid, toggleView }) => {
+const ShopFilterBar = ({ changeCategory, hideOOS, isGrid, toggleView }) => {
   return (
     <OptionsBar id="optionsbar">
       <div id="choosecategory">
         <label htmlFor="productcategory">Category:</label>
-        <select id="productcategory">
+        <select
+          id="productcategory"
+          onChange={(e) => changeCategory(e.target.value)}
+        >
           <option defaultValue="all" name="category">
             All
           </option>
-          <option value="consoles" name="category">
+          <option value="console" name="category">
             Consoles
           </option>
-          <option value="games" name="category">
+          <option value="game" name="category">
             Games
           </option>
-          <option value="accessories" name="category">
+          <option value="accessory" name="category">
             Accessories
           </option>
         </select>
@@ -52,7 +55,7 @@ const ShopFilterBar = ({ isGrid, toggleView }) => {
       </div>
       <div id="toggleoos">
         <label htmlFor="hideoos">Hide out of stock:</label>
-        <input type="checkbox" />
+        <input type="checkbox" onChange={(e) => hideOOS(e.target.checked)} />
       </div>
       <div id="chooseorder">
         <label htmlFor="productorder">Order:</label>
