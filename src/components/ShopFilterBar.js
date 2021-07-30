@@ -11,7 +11,7 @@ const OptionsBar = styled.div`
   }
 `;
 
-const ShopFilters = ({ isGrid, toggleView }) => {
+const ShopFilterBar = ({ isGrid, toggleView }) => {
   return (
     <OptionsBar id="optionsbar">
       <div id="choosecategory">
@@ -70,4 +70,4 @@ const ShopFilters = ({ isGrid, toggleView }) => {
   );
 };
 
-export default ShopFilters;
+export default ShopFilterBar;

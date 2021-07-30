@@ -6,7 +6,7 @@ function importAll(r) {
 
 const images = importAll(require.context("./images/", false, /\.jpg$/));
 
-// Worth mapping image urls to inventory array functionally?
+// TODO: Worth mapping image urls to inventory array functionally?
 
 const inventory = [
   {

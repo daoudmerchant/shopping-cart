@@ -1,8 +1,16 @@
-import React, { useState } from "react";
+// packages
+import React, { useState, useEffect, useCallback } from "react";
 import styled from "styled-components";
-import ShopFilters from "./ShopFilters";
-import ItemTile from "./ItemTile";
+
+// tools
+import organise from "../helpers/organise";
+
+// resources
 import inventory from "../inventory";
+
+// components
+import ShopFilterBar from "./ShopFilterBar";
+import ItemTile from "./ItemTile";
 
 const TileGrid = styled.div`
   display: grid;
@@ -28,14 +36,8 @@ const TileGrid = styled.div`
 
 const Main = () => {
   // initialise state
-
-  const [isGrid, setIsGrid] = useState(true);
-  const toggleView = (e) => {
-    const gridIsSelected = e.target.value === "grid" ? true : false;
-    setIsGrid(gridIsSelected);
-  };
-
-  const storefrontInventory = inventory.map((item) => {
+  const storefrontInventory = inventory.map((item, i) => {
+    item.id = i;
     if (!item.options) {
       return item;
     }
@@ -54,13 +56,20 @@ const Main = () => {
     return item;
   });
 
+  const [currentView, setCurrentView] = useState(storefrontInventory);
+  const [isGrid, setIsGrid] = useState(true);
+  const toggleView = (e) => {
+    const gridIsSelected = e.target.value === "grid" ? true : false;
+    setIsGrid(gridIsSelected);
+  };
+
   return (
     <div>
       <h1>Nintendo Switch</h1>
-      <ShopFilters isGrid={isGrid} toggleView={toggleView} />
+      <ShopFilterBar isGrid={isGrid} toggleView={toggleView} />
       <TileGrid>
-        {storefrontInventory.map((item, i) => {
-          return <ItemTile key={`item${i + 1}`} item={item} />;
+        {currentView.map((item, i) => {
+          return <ItemTile key={`item${item.id}`} item={item} />;
         })}
       </TileGrid>
     </div>
