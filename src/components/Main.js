@@ -61,6 +61,7 @@ const Main = () => {
 
   const [currentView, setCurrentView] = useState(defaultView);
   const [isGrid, setIsGrid] = useState(true);
+  const [hideOOS, setHideOOS] = useState(false);
   const toggleView = (e) => {
     const gridIsSelected = e.target.value === "grid" ? true : false;
     setIsGrid(gridIsSelected);
@@ -73,22 +74,27 @@ const Main = () => {
     };
   };
 
-  const changeCategory = (category) => {
-    if (category === "all") {
-      setCurrentView(defaultView);
-    } else {
-      const categoryView = getCategoryView(category);
-      setCurrentView(categoryView);
-    }
+  const filterOOS = (currentView) => {
+    return {
+      view: currentView.view,
+      inventory: organise.filterBy.inStock(currentView.inventory),
+    };
   };
 
-  const hideOOS = (doHideOOS) => {
+  const changeCategory = (category) => {
+    let nextView = category === "all" ? defaultView : getCategoryView(category);
+    if (hideOOS) {
+      nextView = filterOOS(nextView);
+    }
+    console.log(nextView);
+    setCurrentView(nextView);
+  };
+
+  const toggleHideOOS = (doHideOOS) => {
+    setHideOOS(doHideOOS);
     if (doHideOOS) {
       setCurrentView((prevView) => {
-        return {
-          view: prevView.view,
-          inventory: organise.filterBy.inStock(prevView.inventory),
-        };
+        return filterOOS(prevView);
       });
     } else {
       setCurrentView((prevView) => {
@@ -98,6 +104,7 @@ const Main = () => {
       });
     }
   };
+  // };
 
   return (
     <div>
@@ -105,6 +112,7 @@ const Main = () => {
       <ShopFilterBar
         changeCategory={changeCategory}
         hideOOS={hideOOS}
+        toggleHideOOS={toggleHideOOS}
         isGrid={isGrid}
         toggleView={toggleView}
       />
