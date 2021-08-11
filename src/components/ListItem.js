@@ -39,14 +39,18 @@ const ListItem = ({ item, isGrid, isOdd }) => {
   const priceText = item.lowestPrice
     ? `From £${item.lowestPrice}`
     : `£${item.price}`;
-  const stockTextStyle = !inStock ? { color: "black", opacity: "50%" } : null;
+  const stockTextStyle = !inStock
+    ? { color: "black", opacity: "50%" }
+    : { color: "green" };
   const imageStyle = {
     opacity: !inStock ? "50%" : "1",
     margin: isGrid ? "15px auto 0" : "5px auto",
   };
   const itemBackgroundColor = !isGrid && isOdd ? "grey" : null;
   return (
-    <ItemContainer style={{ backgroundColor: itemBackgroundColor }}>
+    <ItemContainer
+      style={{ cursor: "pointer", backgroundColor: itemBackgroundColor }}
+    >
       <ItemImg src={imageUrl} alt={product} style={imageStyle} />
       <ProductName>{product}</ProductName>
       <StockStatus style={stockTextStyle}>
