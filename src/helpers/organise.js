@@ -2,12 +2,18 @@ const organise = (() => {
   const orderBy = (() => {
     const ascendingPrice = (array) => {
       return [...array].sort((prevItem, thisItem) => {
-        return prevItem.price - thisItem.price;
+        return (
+          (prevItem.price || prevItem.lowestPrice) -
+          (thisItem.price || thisItem.lowestPrice)
+        );
       });
     };
     const descendingPrice = (array) => {
       return [...array].sort((prevItem, thisItem) => {
-        return thisItem.price - prevItem.price;
+        return (
+          (thisItem.price || thisItem.lowestPrice) -
+          (prevItem.price || prevItem.lowestPrice)
+        );
       });
     };
     const defaultOrder = (array) => {

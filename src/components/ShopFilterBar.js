@@ -13,10 +13,12 @@ const OptionsBar = styled.div`
 
 const ShopFilterBar = ({
   changeCategory,
-  hideOOS,
-  toggleHideOOS,
   isGrid,
   toggleView,
+  hideOOS,
+  toggleHideOOS,
+  viewOrder,
+  changeOrder,
 }) => {
   return (
     <OptionsBar id="optionsbar">
@@ -69,12 +71,16 @@ const ShopFilterBar = ({
       </div>
       <div id="chooseorder">
         <label htmlFor="productorder">Order:</label>
-        <select id="productorder">
-          <option defaultValue="none">-</option>
-          <option value="cheapestfirst" name="order">
+        <select
+          id="productorder"
+          value={viewOrder}
+          onChange={(e) => changeOrder(e.target.value)}
+        >
+          <option value="defaultOrder">Default</option>
+          <option value="ascendingPrice" name="order">
             Price (lowest to highest)
           </option>
-          <option value="cheapestlast" name="order">
+          <option value="descendingPrice" name="order">
             Price (highest to lowest)
           </option>
         </select>
