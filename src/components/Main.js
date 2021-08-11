@@ -39,7 +39,7 @@ const Main = () => {
   const defaultView = {
     category: "all",
     hideOOS: false,
-    order: "default",
+    order: "defaultOrder",
     inventory: inventory.map((item, i) => {
       item.id = i;
       if (!item.options) {
@@ -97,7 +97,7 @@ const Main = () => {
     if (currentView.hideOOS) {
       nextView = filterOOS(nextView);
     }
-    if (currentView.order !== "default") {
+    if (currentView.order !== "defaultOrder") {
       nextView = reorderInventory(nextView, currentView.order);
     }
     setCurrentView(nextView);
@@ -110,9 +110,14 @@ const Main = () => {
       });
     } else {
       setCurrentView((prevView) => {
-        return prevView.category === "all"
-          ? defaultView
-          : getCategoryView(prevView.category);
+        let nextView =
+          prevView.category === "all"
+            ? defaultView
+            : getCategoryView(prevView.category);
+        if (prevView.order !== "defaultOrder") {
+          nextView = reorderInventory(nextView, prevView.order);
+        }
+        return nextView;
       });
     }
   };
