@@ -20,7 +20,7 @@ const ShopFilterBar = ({ changeCategory, hideOOS, isGrid, toggleView }) => {
           id="productcategory"
           onChange={(e) => changeCategory(e.target.value)}
         >
-          <option defaultValue="all" name="category">
+          <option defaultValue="all" value="all" name="category">
             All
           </option>
           <option value="console" name="category">

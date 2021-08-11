@@ -86,17 +86,15 @@ const Main = () => {
     if (doHideOOS) {
       setCurrentView((prevView) => {
         return {
-          category: prevView.category,
+          view: prevView.view,
           inventory: organise.filterBy.inStock(prevView.inventory),
         };
       });
     } else {
       setCurrentView((prevView) => {
-        const viewWithOOS =
-          prevView.view === "all"
-            ? defaultView
-            : getCategoryView(prevView.category);
-        setCurrentView(viewWithOOS);
+        return prevView.view === "all"
+          ? defaultView
+          : getCategoryView(prevView.view);
       });
     }
   };
