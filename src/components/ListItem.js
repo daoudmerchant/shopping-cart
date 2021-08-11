@@ -8,10 +8,16 @@ const Tile = styled.div`
   border-radius: 10px;
 `;
 
+const Row = styled.div`
+  display: grid;
+  grid-template-areas: "image name stock price";
+  grid-template-columns: repeat(4, 1fr);
+  align-items: center;
+`;
+
 const ItemImg = styled.img`
   max-height: 200px;
   max-width: 100%;
-  margin: 15px auto 0;
   grid-area: image;
 `;
 
@@ -27,23 +33,28 @@ const Price = styled.p`
   grid-area: price;
 `;
 
-const ItemTile = ({ item }) => {
+const ListItem = ({ item, isGrid, isOdd }) => {
+  const ItemContainer = isGrid ? Tile : Row;
   const { product, imageUrl, inStock } = item;
   const priceText = item.lowestPrice
     ? `From £${item.lowestPrice}`
     : `£${item.price}`;
   const stockTextStyle = !inStock ? { color: "black", opacity: "50%" } : null;
-  const stockImageStyle = !inStock ? { opacity: "50%" } : null;
+  const imageStyle = {
+    opacity: !inStock ? "50%" : "1",
+    margin: isGrid ? "15px auto 0" : "5px auto",
+  };
+  const itemBackgroundColor = !isGrid && isOdd ? "grey" : null;
   return (
-    <Tile>
-      <ItemImg src={imageUrl} alt={product} style={stockImageStyle} />
+    <ItemContainer style={{ backgroundColor: itemBackgroundColor }}>
+      <ItemImg src={imageUrl} alt={product} style={imageStyle} />
       <ProductName>{product}</ProductName>
       <StockStatus style={stockTextStyle}>
         {inStock ? "In Stock" : "Out of Stock"}
       </StockStatus>
       <Price>{priceText}</Price>
-    </Tile>
+    </ItemContainer>
   );
 };
 
-export default ItemTile;
+export default ListItem;

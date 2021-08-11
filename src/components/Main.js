@@ -10,7 +10,7 @@ import inventory from "../inventory";
 
 // components
 import ShopFilterBar from "./ShopFilterBar";
-import ItemTile from "./ItemTile";
+import ListItem from "./ListItem";
 
 const TileGrid = styled.div`
   display: grid;
@@ -32,6 +32,14 @@ const TileGrid = styled.div`
   @media (min-width: 1800px) {
     grid-template-columns: repeat(4, 1fr);
   }
+`;
+
+const RowTable = styled.div`
+  display: flex;
+  flex-direction: column;
+  margin: 10px auto;
+
+  max-width: 1800px;
 `;
 
 const Main = () => {
@@ -128,6 +136,8 @@ const Main = () => {
     });
   };
 
+  const ItemContainer = isGrid ? TileGrid : RowTable;
+
   return (
     <div>
       <h1>Nintendo Switch</h1>
@@ -140,11 +150,18 @@ const Main = () => {
         viewOrder={currentView.order}
         changeOrder={changeOrder}
       />
-      <TileGrid>
+      <ItemContainer>
         {currentView.inventory.map((item, i) => {
-          return <ItemTile key={`item${item.id}`} item={item} />;
+          return (
+            <ListItem
+              key={`item${item.id}`}
+              isGrid={isGrid}
+              item={item}
+              isOdd={i % 2 !== 0}
+            />
+          );
         })}
-      </TileGrid>
+      </ItemContainer>
     </div>
   );
 };
