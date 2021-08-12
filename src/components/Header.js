@@ -28,7 +28,8 @@ const Header = ({ submitSearch }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     // handle submit search
-    submitSearch(e.target.firstChild.value);
+    const searchText = e.target.firstChild.value;
+    submitSearch(searchText);
   };
   return (
     <HeaderBar>

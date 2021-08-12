@@ -14,6 +14,7 @@ import inventory from "../inventory";
 import ShopFilterBar from "./ShopFilterBar";
 import ListItem from "./ListItem";
 import ItemPage from "./ItemPage";
+import EmptySearch from "./EmptySearch";
 
 const TileGrid = styled.div`
   display: grid;
@@ -92,7 +93,7 @@ const Main = ({ searchText }) => {
     } else if (currentView.isSearch) {
       setCurrentView(defaultView);
     }
-  }, [searchText]);
+  }, [searchText, currentView.isSearch]);
 
   // filter bar functions
   const toggleView = (e) => {
@@ -178,23 +179,27 @@ const Main = ({ searchText }) => {
               viewOrder={currentView.order}
               changeOrder={changeOrder}
             />
-            <ItemContainer>
-              {currentView.inventory.map((item, i) => {
-                return (
-                  <Link
-                    key={`link${item.id}`}
-                    to={`/${makeUrlFriendly(item.product)}`}
-                  >
-                    <ListItem
-                      isGrid={isGrid}
-                      item={item}
-                      isOdd={i % 2 !== 0}
-                      key={`item${item.id}`}
-                    />
-                  </Link>
-                );
-              })}
-            </ItemContainer>
+            {currentView.inventory.length ? (
+              <ItemContainer>
+                {currentView.inventory.map((item, i) => {
+                  return (
+                    <Link
+                      key={`link${item.id}`}
+                      to={`/${makeUrlFriendly(item.product)}`}
+                    >
+                      <ListItem
+                        isGrid={isGrid}
+                        item={item}
+                        isOdd={i % 2 !== 0}
+                        key={`item${item.id}`}
+                      />
+                    </Link>
+                  );
+                })}
+              </ItemContainer>
+            ) : (
+              <EmptySearch />
+            )}
           </div>
         </Route>
         {inventory.map((item) => {
