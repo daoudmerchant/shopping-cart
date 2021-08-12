@@ -5,4 +5,8 @@ const makeUrlFriendly = (string) => {
     .join("-");
 };
 
-export default makeUrlFriendly;
+const capitalise = (string) => {
+  return string.charAt(0).toUpperCase() + string.slice(1);
+};
+
+export { makeUrlFriendly, capitalise };

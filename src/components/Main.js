@@ -2,7 +2,7 @@
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
-import makeUrlFriendly from "../helpers/format";
+import { makeUrlFriendly } from "../helpers/format";
 
 // tools
 import organise from "../helpers/organise";
