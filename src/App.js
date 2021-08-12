@@ -1,13 +1,16 @@
+import React, { useState } from "react";
 import Header from "./components/Header";
 import Main from "./components/Main";
-import inventory from "./inventory";
 import "./App.css";
 
 function App() {
+  // pass search text from Header to sibling Main
+  const [currentSearch, setCurrentSearch] = useState("");
+
   return (
     <div className="App">
-      <Header />
-      <Main />
+      <Header submitSearch={setCurrentSearch} />
+      <Main searchText={currentSearch} />
     </div>
   );
 }

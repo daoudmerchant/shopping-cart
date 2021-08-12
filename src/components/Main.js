@@ -21,7 +21,7 @@ const TileGrid = styled.div`
   padding: 15px;
   margin: 5px auto;
 
-  // TOODO: change / remove max width?
+  // TODO: change / remove max width?
   max-width: 1800px;
 
   @media (min-width: 720px) {
@@ -45,12 +45,13 @@ const RowTable = styled.div`
   max-width: 1800px;
 `;
 
-const Main = () => {
+const Main = ({ searchText }) => {
   // initialise state
   const defaultView = {
     category: "all",
     hideOOS: false,
     order: "defaultOrder",
+    isSearch: false,
     inventory: inventory.map((item, i) => {
       item.id = i;
       if (!item.options) {
@@ -72,8 +73,28 @@ const Main = () => {
     }),
   };
 
+  // set state
   const [currentView, setCurrentView] = useState(defaultView);
   const [isGrid, setIsGrid] = useState(true);
+
+  // update if search submitted
+  useEffect(() => {
+    if (searchText) {
+      const searchRexExp = new RegExp(searchText, "i");
+      const searchView = {
+        ...defaultView,
+        isSearch: true,
+        inventory: defaultView.inventory.filter((item) =>
+          item.product.match(searchRexExp)
+        ),
+      };
+      setCurrentView(searchView);
+    } else if (currentView.isSearch) {
+      setCurrentView(defaultView);
+    }
+  }, [searchText]);
+
+  // filter bar functions
   const toggleView = (e) => {
     const gridIsSelected = e.target.value === "grid" ? true : false;
     setIsGrid(gridIsSelected);
@@ -139,6 +160,7 @@ const Main = () => {
     });
   };
 
+  // render conditions
   const ItemContainer = isGrid ? TileGrid : RowTable;
 
   return (
@@ -160,10 +182,15 @@ const Main = () => {
               {currentView.inventory.map((item, i) => {
                 return (
                   <Link
-                    key={`item${item.id}`}
+                    key={`link${item.id}`}
                     to={`/${makeUrlFriendly(item.product)}`}
                   >
-                    <ListItem isGrid={isGrid} item={item} isOdd={i % 2 !== 0} />
+                    <ListItem
+                      isGrid={isGrid}
+                      item={item}
+                      isOdd={i % 2 !== 0}
+                      key={`item${item.id}`}
+                    />
                   </Link>
                 );
               })}
@@ -172,10 +199,16 @@ const Main = () => {
         </Route>
         {inventory.map((item) => {
           return (
-            <Route exact path={`/${makeUrlFriendly(item.product)}`}>
+            <Route
+              exact
+              path={`/${makeUrlFriendly(item.product)}`}
+              key={`route${item.id}`}
+            >
               <div>
-                <Link to="/">Back</Link>
-                <ItemPage item={item} />
+                <Link to="/" key={`link${item.id}`}>
+                  Back
+                </Link>
+                <ItemPage item={item} key={`item${item.id}`} />
               </div>
             </Route>
           );

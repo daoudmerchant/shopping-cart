@@ -23,11 +23,12 @@ const CartIcon = styled.p`
   grid-area: basket;
 `;
 
-const Header = () => {
+const Header = ({ submitSearch }) => {
   const [currentSearch, updateCurrentSearch] = useState("");
   const handleSubmit = (e) => {
-    // handle submit search
     e.preventDefault();
+    // handle submit search
+    submitSearch(e.target.firstChild.value);
   };
   return (
     <HeaderBar>
