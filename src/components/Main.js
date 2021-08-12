@@ -15,6 +15,7 @@ import ShopFilterBar from "./ShopFilterBar";
 import ListItem from "./ListItem";
 import ItemPage from "./ItemPage";
 import EmptySearch from "./EmptySearch";
+import Cart from "./Cart";
 
 const TileGrid = styled.div`
   display: grid;
@@ -46,7 +47,7 @@ const RowTable = styled.div`
   max-width: 1800px;
 `;
 
-const Main = ({ searchText, setCart }) => {
+const Main = ({ searchText, setCart, cart }) => {
   // initialise state
   const defaultView = {
     category: "all",

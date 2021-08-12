@@ -13,7 +13,7 @@ function App() {
   return (
     <div className="App">
       <Header submitSearch={setCurrentSearch} cart={cart} />
-      <Main searchText={currentSearch} setCart={setCart} />
+      <Main searchText={currentSearch} setCart={setCart} cart={cart} />
     </div>
   );
 }

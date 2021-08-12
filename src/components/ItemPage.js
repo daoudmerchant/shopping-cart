@@ -108,6 +108,7 @@ const ItemPage = ({ item, setCart }) => {
         type="number"
         min="1"
         onChange={(e) => setQuantity(Number(e.target.value))}
+        disabled={!currentOption.inStock}
       />
       <AddToBasket
         onClick={() => {
@@ -146,6 +147,7 @@ const ItemPage = ({ item, setCart }) => {
             return newCart;
           });
         }}
+        disabled={!currentOption.inStock}
       >
         Add To Basket
       </AddToBasket>

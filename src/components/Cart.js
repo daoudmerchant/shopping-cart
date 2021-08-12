@@ -1,11 +1,12 @@
 import React from "react";
-// import CartItem from "./CartItem";
-// import inventory from "../inventory";
 
-const Cart = () => {
+const Cart = (cart) => {
+  console.log(cart);
   return (
     <div>
-      {/* <CartItem item={inventory[4]} quantity="2" modifyQuantity={{}} />00 */}
+      {/* {cart.map((item) => (
+        <p>{item}</p>
+      ))} */}
     </div>
   );
 };
