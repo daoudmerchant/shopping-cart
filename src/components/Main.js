@@ -46,7 +46,7 @@ const RowTable = styled.div`
   max-width: 1800px;
 `;
 
-const Main = ({ searchText }) => {
+const Main = ({ searchText, setCart }) => {
   // initialise state
   const defaultView = {
     category: "all",
@@ -54,23 +54,26 @@ const Main = ({ searchText }) => {
     order: "defaultOrder",
     isSearch: false,
     inventory: inventory.map((item, i) => {
-      item.id = i;
-      if (!item.options) {
-        return item;
+      let newItem = { ...item };
+      newItem.id = i;
+      if (!newItem.options) {
+        return newItem;
       }
-      item.imageUrl = item.options[0].imageUrl;
+      newItem.imageUrl = newItem.options[0].imageUrl;
       let hasMultiplePrices = false;
-      const lowestPriceItem = item.options.reduce((prevOption, thisOption) => {
-        if (thisOption.price !== prevOption.price) {
-          hasMultiplePrices = true;
+      const lowestPriceItem = newItem.options.reduce(
+        (prevOption, thisOption) => {
+          if (thisOption.price !== prevOption.price) {
+            hasMultiplePrices = true;
+          }
+          return thisOption.price < prevOption.price ? thisOption : prevOption;
         }
-        return thisOption.price < prevOption.price ? thisOption : prevOption;
-      });
+      );
       const priceType = hasMultiplePrices ? "lowestPrice" : "price";
-      item[priceType] = lowestPriceItem.price;
-      item.inStock = item.options.some((option) => option.inStock);
-      delete item.options;
-      return item;
+      newItem[priceType] = lowestPriceItem.price;
+      newItem.inStock = newItem.options.some((option) => option.inStock);
+      delete newItem.options;
+      return newItem;
     }),
   };
 
@@ -203,6 +206,7 @@ const Main = ({ searchText }) => {
           </div>
         </Route>
         {inventory.map((item) => {
+          console.log();
           return (
             <Route
               exact
@@ -213,7 +217,11 @@ const Main = ({ searchText }) => {
                 <Link to="/" key={`link${item.id}`}>
                   Back
                 </Link>
-                <ItemPage item={item} key={`item${item.id}`} />
+                <ItemPage
+                  item={item}
+                  setCart={setCart}
+                  key={`item${item.id}`}
+                />
               </div>
             </Route>
           );

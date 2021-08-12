@@ -7,10 +7,13 @@ function App() {
   // pass search text from Header to sibling Main
   const [currentSearch, setCurrentSearch] = useState("");
 
+  // cart logic
+  const [cart, setCart] = useState([]);
+
   return (
     <div className="App">
-      <Header submitSearch={setCurrentSearch} />
-      <Main searchText={currentSearch} />
+      <Header submitSearch={setCurrentSearch} cart={cart} />
+      <Main searchText={currentSearch} setCart={setCart} />
     </div>
   );
 }

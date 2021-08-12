@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { capitalise } from "../helpers/format";
 
@@ -9,8 +9,9 @@ const Container = styled.div`
     "name name"
     "category category"
     "stock price"
+    "select select"
     "description description"
-    "buy buy";
+    "quantity buy";
   grid-template-columns: repeat(2, 1fr);
 
   @media (min-width: 1120px) {
@@ -18,8 +19,9 @@ const Container = styled.div`
       "image image name name"
       "image image category category"
       "image image stock price"
+      "image image select select"
       "image image description description"
-      "image image buy buy";
+      "image image quantity buy";
     grid-template-columns: repeat(4, 1fr);
   }
 `;
@@ -47,27 +49,106 @@ const ItemPrice = styled.p`
   grid-area: price;
 `;
 
+const ItemOption = styled.select`
+  grid-area: select;
+`;
+
 const ItemDescription = styled.p`
   grid-area: description;
+`;
+
+const ItemQuantity = styled.input`
+  grid-area: quantity;
 `;
 
 const AddToBasket = styled.button`
   grid-area: buy;
 `;
 
-const ItemPage = ({ item }) => {
-  const { product, description, category, imageUrl, price, inStock } = item;
+const ItemPage = ({ item, setCart }) => {
+  const { product, description, category, options } = item;
+
+  const firstOption = options ? options[0] : item;
+  const [currentOption, setCurrentOption] = useState(firstOption);
+  const [quantity, setQuantity] = useState(1);
   return (
     <Container>
-      <ItemImage src={imageUrl} alt={product} />
+      <ItemImage src={currentOption.imageUrl} alt={product} />
       <ItemName>{product}</ItemName>
       <ItemCategory>{`Category: ${capitalise(category)}`}</ItemCategory>
-      <ItemStock style={inStock ? { color: "green" } : { opacity: "50%" }}>
-        {inStock ? "In Stock" : "Out of Stock"}
+      <ItemStock
+        style={currentOption.inStock ? { color: "green" } : { opacity: "50%" }}
+      >
+        {currentOption.inStock ? "In Stock" : "Out of Stock"}
       </ItemStock>
-      <ItemPrice>{`£${price}`}</ItemPrice>
+      <ItemPrice>{`£${currentOption.price}`}</ItemPrice>
+      {item.options && (
+        <ItemOption
+          value={currentOption.color}
+          onChange={(e) => {
+            const newOption = options.find(
+              (item) => item.color === e.target.value
+            );
+            setQuantity(1);
+            setCurrentOption(newOption);
+          }}
+        >
+          {item.options.map((itemOption, i) => {
+            return (
+              <option key={`option${i}`} value={itemOption.color} name="color">
+                {itemOption.color}
+              </option>
+            );
+          })}
+        </ItemOption>
+      )}
       <ItemDescription>{description}</ItemDescription>
-      <AddToBasket>Add To Basket</AddToBasket>
+      <ItemQuantity
+        value={quantity}
+        type="number"
+        min="1"
+        onChange={(e) => setQuantity(Number(e.target.value))}
+      />
+      <AddToBasket
+        onClick={() => {
+          if (!currentOption.inStock) {
+            return;
+          }
+          const itemForBasket = currentOption.product
+            ? {
+                ...currentOption,
+                quantity,
+              }
+            : {
+                product,
+                description,
+                category,
+                color: currentOption.color,
+                imageUrl: currentOption.imageUrl,
+                price: currentOption.price,
+                quantity,
+              };
+          setCart((prevCart) => {
+            let newCart = [...prevCart];
+            const itemAlreadyAdded = prevCart.findIndex(
+              (item) =>
+                item.product === itemForBasket.product &&
+                (!itemForBasket.color || item.color === itemForBasket.color)
+            );
+            if (itemAlreadyAdded >= 0) {
+              // item already in cart
+              newCart[itemAlreadyAdded].quantity += itemForBasket.quantity;
+            } else {
+              // new to cart
+              newCart.push(itemForBasket);
+            }
+            console.log(newCart);
+            return newCart;
+          });
+        }}
+      >
+        Add To Basket
+      </AddToBasket>
     </Container>
   );
 };

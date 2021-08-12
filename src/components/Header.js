@@ -23,8 +23,9 @@ const CartIcon = styled.p`
   grid-area: basket;
 `;
 
-const Header = ({ submitSearch }) => {
+const Header = ({ submitSearch, cart }) => {
   const [currentSearch, updateCurrentSearch] = useState("");
+
   const handleSubmit = (e) => {
     e.preventDefault();
     // handle submit search
@@ -42,7 +43,10 @@ const Header = ({ submitSearch }) => {
         />
         <button type="submit">Submit</button>
       </SearchBar>
-      <CartIcon>Basket</CartIcon>
+      <CartIcon>{`Basket: ${cart.reduce(
+        (accumulator, item) => accumulator + item.quantity,
+        0
+      )}`}</CartIcon>
     </HeaderBar>
   );
 };
