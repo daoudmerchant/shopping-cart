@@ -1,5 +1,5 @@
 // packages
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { makeUrlFriendly } from "../helpers/format";
@@ -45,7 +45,7 @@ const RowTable = styled.div`
   max-width: 1800px;
 `;
 
-const Main = ({ searchText, setCart, cart }) => {
+const Main = ({ searchText }) => {
   // initialise state
   const defaultView = {
     category: "all",
@@ -79,23 +79,23 @@ const Main = ({ searchText, setCart, cart }) => {
   // set state
   const [currentView, setCurrentView] = useState(defaultView);
   const [isGrid, setIsGrid] = useState(true);
+  const [lastSearch, setLastSearch] = useState("");
 
-  // update if search submitted
-  useEffect(() => {
-    if (searchText) {
-      const searchRexExp = new RegExp(searchText, "i");
-      const searchView = {
-        ...defaultView,
-        isSearch: true,
-        inventory: defaultView.inventory.filter((item) =>
-          item.product.match(searchRexExp)
-        ),
-      };
-      setCurrentView(searchView);
-    } else if (currentView.isSearch) {
-      setCurrentView(defaultView);
-    }
-  }, [searchText, currentView.isSearch]);
+  // // update if search submitted
+  console.log(currentView.isSearch);
+  if (searchText && searchText !== lastSearch) {
+    // FIX: Search same text second time after changing category
+    setLastSearch(searchText);
+    const searchRexExp = new RegExp(searchText, "i");
+    const searchView = {
+      ...defaultView,
+      isSearch: true,
+      inventory: defaultView.inventory.filter((item) =>
+        item.product.match(searchRexExp)
+      ),
+    };
+    setCurrentView(searchView);
+  }
 
   // filter bar functions
   const toggleView = (e) => {
@@ -106,6 +106,7 @@ const Main = ({ searchText, setCart, cart }) => {
   const getCategoryView = (category) => {
     return {
       ...defaultView,
+      isSearch: false,
       category,
       inventory: organise.filterBy.category(defaultView.inventory, category),
     };

@@ -112,9 +112,6 @@ const ItemPage = ({ item, setCart }) => {
       />
       <AddToBasket
         onClick={() => {
-          if (!currentOption.inStock) {
-            return;
-          }
           const itemForBasket = currentOption.product
             ? {
                 ...currentOption,
@@ -130,7 +127,7 @@ const ItemPage = ({ item, setCart }) => {
                 quantity,
               };
           setCart((prevCart) => {
-            let newCart = [...prevCart];
+            let newCart;
             const itemAlreadyAdded = prevCart.findIndex(
               (item) =>
                 item.product === itemForBasket.product &&
@@ -138,12 +135,25 @@ const ItemPage = ({ item, setCart }) => {
             );
             if (itemAlreadyAdded >= 0) {
               // item already in cart
-              newCart[itemAlreadyAdded].quantity += itemForBasket.quantity;
+              newCart = prevCart.map((item, i) => {
+                if (i === itemAlreadyAdded) {
+                  return {
+                    ...item,
+                    quantity: item.quantity + itemForBasket.quantity,
+                  };
+                }
+                return item;
+              });
             } else {
               // new to cart
-              newCart.push(itemForBasket);
+              newCart = [...prevCart, itemForBasket];
             }
-            console.log(newCart);
+            console.table(
+              newCart.map((item) => ({
+                product: item.product,
+                quantity: item.quantity,
+              }))
+            );
             return newCart;
           });
         }}

@@ -15,7 +15,7 @@ const Routes = () => {
   const [cart, setCart] = useState([]);
 
   // pass search text from Header to sibling Main
-  const [currentSearch, setCurrentSearch] = useState("");
+  const [search, setSearch] = useState("");
 
   return (
     <Router>
@@ -24,14 +24,10 @@ const Routes = () => {
           (accumulator, item) => accumulator + item.quantity,
           0
         )}
-        submitSearch={setCurrentSearch}
+        submitSearch={setSearch}
       />
       <Switch>
-        <Route
-          exact
-          path="/"
-          component={() => <Main searchText={currentSearch} />}
-        />
+        <Route exact path="/" component={() => <Main searchText={search} />} />
         {inventory.map((item) => {
           return (
             <Route
