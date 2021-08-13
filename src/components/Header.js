@@ -24,7 +24,7 @@ const CartIcon = styled.p`
   grid-area: basket;
 `;
 
-const Header = ({ submitSearch, cartQuantity }) => {
+const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
   const [currentSearch, updateCurrentSearch] = useState("");
 
   const handleSubmit = (e) => {
@@ -35,7 +35,7 @@ const Header = ({ submitSearch, cartQuantity }) => {
   };
   return (
     <HeaderBar>
-      <Link to="/">
+      <Link to="/" onClick={resetSearch}>
         <Logo id="logo">CoolShop</Logo>
       </Link>
       <SearchBar id="search" onSubmit={handleSubmit}>

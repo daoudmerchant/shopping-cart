@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useHistory } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // components
@@ -13,10 +13,15 @@ import { makeUrlFriendly } from "./helpers/format";
 const Routes = () => {
   // cart logic
   const [cart, setCart] = useState([]);
-  console.log(setCart);
 
   // pass search text from Header to sibling Main
   const [search, setSearch] = useState("");
+  const [justSearched, setJustSearched] = useState(false);
+  const submitSearch = (string) => {
+    setJustSearched(true);
+    setSearch(string);
+  };
+  const resetSearch = () => setJustSearched(false);
 
   return (
     <Router>
@@ -25,10 +30,20 @@ const Routes = () => {
           (accumulator, item) => accumulator + item.quantity,
           0
         )}
-        submitSearch={setSearch}
+        submitSearch={submitSearch}
+        resetSearch={resetSearch}
       />
       <Switch>
-        <Route exact path="/" component={() => <Main searchText={search} />} />
+        <Route
+          exact
+          path="/"
+          component={() => (
+            <Main
+              searchText={justSearched && search}
+              resetSearch={resetSearch}
+            />
+          )}
+        />
         {inventory.map((item) => {
           return (
             <Route

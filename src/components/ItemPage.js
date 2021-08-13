@@ -67,7 +67,6 @@ const AddToBasket = styled.button`
 
 const ItemPage = ({ item, setCart }) => {
   const { product, description, category, options } = item;
-
   const firstOption = options ? options[0] : item;
   const [currentOption, setCurrentOption] = useState(firstOption);
   const [quantity, setQuantity] = useState(1);
@@ -111,6 +110,7 @@ const ItemPage = ({ item, setCart }) => {
         disabled={!currentOption.inStock}
       />
       <AddToBasket
+        type="button"
         onClick={() => {
           const itemForBasket = currentOption.product
             ? {

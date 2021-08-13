@@ -45,7 +45,7 @@ const RowTable = styled.div`
   max-width: 1800px;
 `;
 
-const Main = ({ searchText }) => {
+const Main = ({ searchText, resetSearch }) => {
   // initialise state
   const defaultView = {
     category: "all",
@@ -82,7 +82,6 @@ const Main = ({ searchText }) => {
   const [lastSearch, setLastSearch] = useState("");
 
   // // update if search submitted
-  console.log(currentView.isSearch);
   if (searchText && searchText !== lastSearch) {
     // FIX: Search same text second time after changing category
     setLastSearch(searchText);
@@ -136,6 +135,7 @@ const Main = ({ searchText }) => {
     if (currentView.order !== "defaultOrder") {
       nextView = reorderInventory(nextView, currentView.order);
     }
+    resetSearch();
     setCurrentView(nextView);
   };
 
