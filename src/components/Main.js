@@ -1,7 +1,7 @@
 // packages
 import React, { useState, useEffect } from "react";
 import styled from "styled-components";
-import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { makeUrlFriendly } from "../helpers/format";
 
 // tools
@@ -13,9 +13,7 @@ import inventory from "../inventory";
 // components
 import ShopFilterBar from "./ShopFilterBar";
 import ListItem from "./ListItem";
-import ItemPage from "./ItemPage";
 import EmptySearch from "./EmptySearch";
-import Cart from "./Cart";
 
 const TileGrid = styled.div`
   display: grid;
@@ -169,66 +167,39 @@ const Main = ({ searchText, setCart, cart }) => {
   const ItemContainer = isGrid ? TileGrid : RowTable;
 
   return (
-    <Router>
-      <Switch>
-        <Route exact path="/">
-          <div>
-            <h1>Nintendo Switch</h1>
-            <ShopFilterBar
-              changeCategory={changeCategory}
-              isGrid={isGrid}
-              toggleView={toggleView}
-              hideOOS={currentView.hideOOS}
-              toggleHideOOS={toggleHideOOS}
-              viewOrder={currentView.order}
-              changeOrder={changeOrder}
-            />
-            {currentView.inventory.length ? (
-              <ItemContainer>
-                {currentView.inventory.map((item, i) => {
-                  return (
-                    <Link
-                      key={`link${item.id}`}
-                      to={`/${makeUrlFriendly(item.product)}`}
-                    >
-                      <ListItem
-                        isGrid={isGrid}
-                        item={item}
-                        isOdd={i % 2 !== 0}
-                        key={`item${item.id}`}
-                      />
-                    </Link>
-                  );
-                })}
-              </ItemContainer>
-            ) : (
-              <EmptySearch />
-            )}
-          </div>
-        </Route>
-        {inventory.map((item) => {
-          console.log();
-          return (
-            <Route
-              exact
-              path={`/${makeUrlFriendly(item.product)}`}
-              key={`route${item.id}`}
-            >
-              <div>
-                <Link to="/" key={`link${item.id}`}>
-                  Back
-                </Link>
-                <ItemPage
+    <div>
+      <h1>Nintendo Switch</h1>
+      <ShopFilterBar
+        changeCategory={changeCategory}
+        isGrid={isGrid}
+        toggleView={toggleView}
+        hideOOS={currentView.hideOOS}
+        toggleHideOOS={toggleHideOOS}
+        viewOrder={currentView.order}
+        changeOrder={changeOrder}
+      />
+      {currentView.inventory.length ? (
+        <ItemContainer>
+          {currentView.inventory.map((item, i) => {
+            return (
+              <Link
+                key={`link${item.id}`}
+                to={`/${makeUrlFriendly(item.product)}`}
+              >
+                <ListItem
+                  isGrid={isGrid}
                   item={item}
-                  setCart={setCart}
+                  isOdd={i % 2 !== 0}
                   key={`item${item.id}`}
                 />
-              </div>
-            </Route>
-          );
-        })}
-      </Switch>
-    </Router>
+              </Link>
+            );
+          })}
+        </ItemContainer>
+      ) : (
+        <EmptySearch />
+      )}
+    </div>
   );
 };
 

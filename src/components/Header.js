@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderBar = styled.header`
@@ -23,7 +24,7 @@ const CartIcon = styled.p`
   grid-area: basket;
 `;
 
-const Header = ({ submitSearch, cart }) => {
+const Header = ({ submitSearch, cartQuantity }) => {
   const [currentSearch, updateCurrentSearch] = useState("");
 
   const handleSubmit = (e) => {
@@ -34,7 +35,9 @@ const Header = ({ submitSearch, cart }) => {
   };
   return (
     <HeaderBar>
-      <Logo id="logo">CoolShop</Logo>
+      <Link to="/">
+        <Logo id="logo">CoolShop</Logo>
+      </Link>
       <SearchBar id="search" onSubmit={handleSubmit}>
         <input
           type="text"
@@ -43,10 +46,9 @@ const Header = ({ submitSearch, cart }) => {
         />
         <button type="submit">Submit</button>
       </SearchBar>
-      <CartIcon>{`Basket: ${cart.reduce(
-        (accumulator, item) => accumulator + item.quantity,
-        0
-      )}`}</CartIcon>
+      <Link to="/cart">
+        <CartIcon>{`Cart: ${cartQuantity}`}</CartIcon>
+      </Link>
     </HeaderBar>
   );
 };
