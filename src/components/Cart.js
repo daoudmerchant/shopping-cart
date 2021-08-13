@@ -15,10 +15,16 @@ const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
   max-width: 1500px;
+  margin: 0 auto;
 `;
 
 const CartTotal = styled.div`
   display: flex;
+  justify-content: flex-end;
+`;
+
+const GoToCheckout = styled.button`
+  // style
 `;
 
 const Cart = ({ cart, setCart }) => {
@@ -91,6 +97,10 @@ const Cart = ({ cart, setCart }) => {
   const totalCost = cart.reduce((accumulator, item) => {
     return accumulator + item.price * item.quantity;
   }, 0);
+  const totalItems = cart.reduce(
+    (accumulator, item) => accumulator + item.quantity,
+    0
+  );
   return (
     <div>
       {cart.length ? (
@@ -99,7 +109,17 @@ const Cart = ({ cart, setCart }) => {
             <CartItem item={item} index={i} modifyQuantity={modifyQuantity} />
           ))}
           <CartTotal>
-            <p>{`Total: £${roundPrice(totalCost)}`}</p>
+            <p>{`Subtotal (${totalItems} item${
+              totalItems > 1 ? "s" : ""
+            }):`}</p>
+            <p>{`£${roundPrice(totalCost)}`}</p>
+            <GoToCheckout
+              onClick={() =>
+                alert("I advise you to 'check out' the rest of my projects :)")
+              }
+            >
+              To Checkout
+            </GoToCheckout>
           </CartTotal>
         </CartContainer>
       ) : (

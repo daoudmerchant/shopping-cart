@@ -49,6 +49,10 @@ const CartItemPrice = styled.p`
   grid-area: price;
 `;
 
+const CartItemRemove = styled.button`
+  grid-area: remove;
+`;
+
 const CartItem = ({ item, index, modifyQuantity }) => {
   const { product, inStock, imageUrl, price, quantity } = item;
   const { increaseQuantity, decreaseQuantity, setQuantity } = modifyQuantity;
@@ -82,6 +86,7 @@ const CartItem = ({ item, index, modifyQuantity }) => {
         />
         <button onClick={() => increaseQuantity(index)}>+</button>
       </CartItemQuantity>
+      <CartItemRemove onClick={removeItem}>Remove</CartItemRemove>
     </CartItemContainer>
   );
 };
