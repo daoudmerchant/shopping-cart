@@ -13,6 +13,7 @@ import { makeUrlFriendly } from "./helpers/format";
 const Routes = () => {
   // cart logic
   const [cart, setCart] = useState([]);
+  console.log(setCart);
 
   // pass search text from Header to sibling Main
   const [search, setSearch] = useState("");
@@ -38,7 +39,10 @@ const Routes = () => {
             />
           );
         })}
-        <Route path="/cart" component={() => <Cart cart={cart} />} />
+        <Route
+          path="/cart"
+          component={() => <Cart cart={cart} setCart={setCart} />}
+        />
       </Switch>
     </Router>
   );

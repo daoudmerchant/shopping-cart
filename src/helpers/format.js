@@ -9,4 +9,8 @@ const capitalise = (string) => {
   return string.charAt(0).toUpperCase() + string.slice(1);
 };
 
-export { makeUrlFriendly, capitalise };
+const roundPrice = (number) => {
+  return Number.parseFloat(number).toFixed(2);
+};
+
+export { makeUrlFriendly, capitalise, roundPrice };

@@ -115,12 +115,14 @@ const ItemPage = ({ item, setCart }) => {
           const itemForBasket = currentOption.product
             ? {
                 ...currentOption,
+                inStock: true,
                 quantity,
               }
             : {
                 product,
                 description,
                 category,
+                inStock: true,
                 color: currentOption.color,
                 imageUrl: currentOption.imageUrl,
                 price: currentOption.price,
@@ -148,12 +150,6 @@ const ItemPage = ({ item, setCart }) => {
               // new to cart
               newCart = [...prevCart, itemForBasket];
             }
-            console.table(
-              newCart.map((item) => ({
-                product: item.product,
-                quantity: item.quantity,
-              }))
-            );
             return newCart;
           });
         }}
