@@ -15,6 +15,10 @@ const Container = styled.div`
     "description description"
     "quantity buy";
   grid-template-columns: repeat(2, 1fr);
+  position: absolute;
+  top: -50%;
+  left: 50%;
+  transform: translate(-50%, 50%);
 
   @media (min-width: 1120px) {
     grid-template-areas:
@@ -25,6 +29,7 @@ const Container = styled.div`
       "image image description description"
       "image image quantity buy";
     grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
   }
 `;
 
@@ -33,6 +38,13 @@ const ItemImage = styled.img`
   max-height: 300px;
   grid-area: image;
   margin: 0 auto;
+
+  @media (min-width: 1120px) {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
 `;
 
 const ItemName = styled.h2`

@@ -5,6 +5,7 @@ body {
   font-family: "PT Sans Caption", sans-serif;
   text-align: center;
   overflow-y: scroll;
+  position: relative;
 }
 
 a {
