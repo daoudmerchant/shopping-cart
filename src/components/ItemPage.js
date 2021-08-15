@@ -5,6 +5,7 @@ import { capitalise } from "../helpers/format";
 
 const Container = styled.div`
   display: grid;
+  padding: 20px;
   grid-template-areas:
     "image image"
     "name name"
@@ -29,7 +30,7 @@ const Container = styled.div`
 
 const ItemImage = styled.img`
   max-width: 100%;
-  max-height: 100%;
+  max-height: 300px;
   grid-area: image;
   margin: 0 auto;
 `;
@@ -60,13 +61,18 @@ const ItemDescription = styled.p`
 
 const ItemQuantity = styled.input`
   grid-area: quantity;
+  padding: 1rem;
+  margin-right: 10px;
 `;
 
 const AddToBasket = styled.button`
-  grid-area: buy;
+  width: 100%;
+  height: 100%;
+  padding: 1rem;
+  margin-left: 10px;
 `;
 
-const ItemPage = ({ item, lastItem, setCart }) => {
+const ItemPage = ({ item, setCart }) => {
   const { product, description, category, options } = item;
 
   const firstOption = options ? options[0] : item;
@@ -112,7 +118,7 @@ const ItemPage = ({ item, lastItem, setCart }) => {
         onChange={(e) => setQuantity(Number(e.target.value))}
         disabled={!currentOption.inStock}
       />
-      <Link to="/cart">
+      <Link to="/cart" style={{ gridArea: "buy" }}>
         <AddToBasket
           type="button"
           onClick={() => {

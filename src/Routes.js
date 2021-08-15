@@ -51,13 +51,7 @@ const Routes = () => {
               exact
               path={`/${makeUrlFriendly(item.product)}`}
               key={`route${item.id}`}
-              component={() => (
-                <ItemPage
-                  item={item}
-                  setCart={setCart}
-                  lastItem={cart.length && cart[cart.length - 1]}
-                />
-              )}
+              component={() => <ItemPage item={item} setCart={setCart} />}
             />
           );
         })}

@@ -4,11 +4,37 @@ import styled from "styled-components";
 const OptionsBar = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  position: relative;
+  margin-bottom: 30px;
 
   @media (min-width: 760px) {
     display: flex;
     justify-content: space-between;
   }
+
+  :before,
+  :after {
+    position: absolute;
+    content: "";
+    width: 90%;
+    height: 4px;
+    background: red;
+    margin-left: 5%;
+  }
+
+  :after {
+    bottom: -10px;
+  }
+
+  :before {
+    top: -10px;
+  }
+`;
+
+const FilterType = styled.div`
+  display: flex;
+  justify-content: space-between;
+  margin: 5px 20px;
 `;
 
 const ShopFilterBar = ({
@@ -22,7 +48,7 @@ const ShopFilterBar = ({
 }) => {
   return (
     <OptionsBar id="optionsbar">
-      <div id="choosecategory">
+      <FilterType id="choosecategory">
         <label htmlFor="productcategory">Category:</label>
         <select
           id="productcategory"
@@ -41,40 +67,44 @@ const ShopFilterBar = ({
             Accessories
           </option>
         </select>
-      </div>
-      <div id="toggleview">
+      </FilterType>
+      <FilterType id="toggleview">
         <label htmlFor="chooseview">View:</label>
-        <input
-          type="radio"
-          value="grid"
-          name="view"
-          checked={isGrid}
-          onChange={toggleView}
-        />
-        Grid
-        <input
-          type="radio"
-          value="list"
-          name="view"
-          checked={!isGrid}
-          onChange={toggleView}
-        />
-        List
-      </div>
-      <div id="toggleoos">
+        <div>
+          <input
+            type="radio"
+            value="grid"
+            name="view"
+            checked={isGrid}
+            onChange={toggleView}
+          />
+          Grid
+          <input
+            type="radio"
+            value="list"
+            name="view"
+            checked={!isGrid}
+            onChange={toggleView}
+            style={{ marginLeft: "20px" }}
+          />
+          List
+        </div>
+      </FilterType>
+      <FilterType id="toggleoos">
         <label htmlFor="hideoos">Hide out of stock:</label>
         <input
           type="checkbox"
           defaultChecked={hideOOS}
           onChange={(e) => toggleHideOOS(e.target.checked)}
         />
-      </div>
-      <div id="chooseorder">
+      </FilterType>
+      <FilterType id="chooseorder">
         <label htmlFor="productorder">Order:</label>
         <select
           id="productorder"
           value={viewOrder}
           onChange={(e) => changeOrder(e.target.value)}
+          style={{ width: "70%" }}
         >
           <option value="defaultOrder">Default</option>
           <option value="ascendingPrice" name="order">
@@ -84,7 +114,7 @@ const ShopFilterBar = ({
             Price (highest to lowest)
           </option>
         </select>
-      </div>
+      </FilterType>
     </OptionsBar>
   );
 };

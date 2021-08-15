@@ -6,6 +6,12 @@ const Tile = styled.div`
   grid-template-areas: "image image" "name name" "stock price";
   border: 1px solid grey;
   border-radius: 10px;
+  transition: 0.1s linear all;
+
+  :hover {
+    box-shadow: -7px 5px 15px -1px rgba(0, 0, 0, 0.44);
+    background-color: rgb(255, 233, 232);
+  }
 `;
 
 const Row = styled.div`

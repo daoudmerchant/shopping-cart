@@ -62,11 +62,15 @@ const CartItem = ({ item, index, modifyQuantity }) => {
     setQuantity(index, 0);
   };
 
+  const stockStyle = inStock ? { color: "green" } : { opacity: "50%" };
+
   return (
     <CartItemContainer>
       <CartItemImage src={imageUrl} alt={product} />
       <CartItemName>{product}</CartItemName>
-      <CartItemStock>{inStock ? "In Stock" : "Out of Stock"}</CartItemStock>
+      <CartItemStock style={stockStyle}>
+        {inStock ? "In Stock" : "Out of Stock"}
+      </CartItemStock>
       <CartItemPrice>£{price}</CartItemPrice>
       <CartItemQuantity>
         <p>Quantity:</p>

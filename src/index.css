@@ -1,5 +1,23 @@
+@import url("https://fonts.googleapis.com/css2?family=PT+Sans+Caption:wght@400;700&family=PT+Sans+Narrow&display=swap");
 body {
   margin: 0;
   height: 100%;
-  background-color: aquamarine;
+  font-family: "PT Sans Caption", sans-serif;
+  text-align: center;
+  overflow-y: scroll;
+}
+
+a {
+  color: inherit;
+  text-decoration: inherit;
+}
+
+h1 {
+  font-family: "PT Sans Narrow", sans-serif;
+}
+
+button {
+  outline: none;
+  border: none;
+  padding: 0.5rem;
 }

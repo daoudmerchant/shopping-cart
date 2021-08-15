@@ -4,9 +4,6 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { makeUrlFriendly } from "../helpers/format";
 
-// tools
-import organise from "../helpers/organise";
-
 // resources
 import inventory from "../inventory";
 
@@ -15,11 +12,15 @@ import ShopFilterBar from "./ShopFilterBar";
 import ListItem from "./ListItem";
 import EmptySearch from "./EmptySearch";
 
+// tools
+import organise from "../helpers/organise";
+import { roundPrice } from "../helpers/format";
+
 const TileGrid = styled.div`
   display: grid;
-  grid-gap: 15px;
-  padding: 15px;
-  margin: 5px auto;
+  grid-gap: 25px;
+  padding: 25px;
+  margin: 0 auto;
 
   // TODO: change / remove max width?
   max-width: 1800px;
@@ -69,7 +70,7 @@ const Main = ({ searchText, resetSearch }) => {
         }
       );
       const priceType = hasMultiplePrices ? "lowestPrice" : "price";
-      newItem[priceType] = lowestPriceItem.price;
+      newItem[priceType] = roundPrice(lowestPriceItem.price);
       newItem.inStock = newItem.options.some((option) => option.inStock);
       delete newItem.options;
       return newItem;
@@ -169,7 +170,7 @@ const Main = ({ searchText, resetSearch }) => {
 
   return (
     <div>
-      <h1>Nintendo Switch</h1>
+      <h2>Nintendo Switch</h2>
       <ShopFilterBar
         changeCategory={changeCategory}
         isGrid={isGrid}
