@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { capitalise } from "../helpers/format";
 
@@ -65,9 +66,11 @@ const AddToBasket = styled.button`
   grid-area: buy;
 `;
 
-const ItemPage = ({ item, setCart }) => {
+const ItemPage = ({ item, lastItem, setCart }) => {
   const { product, description, category, options } = item;
+
   const firstOption = options ? options[0] : item;
+
   const [currentOption, setCurrentOption] = useState(firstOption);
   const [quantity, setQuantity] = useState(1);
   return (
@@ -109,54 +112,56 @@ const ItemPage = ({ item, setCart }) => {
         onChange={(e) => setQuantity(Number(e.target.value))}
         disabled={!currentOption.inStock}
       />
-      <AddToBasket
-        type="button"
-        onClick={() => {
-          const itemForBasket = currentOption.product
-            ? {
-                ...currentOption,
-                inStock: true,
-                quantity,
-              }
-            : {
-                product,
-                description,
-                category,
-                inStock: true,
-                color: currentOption.color,
-                imageUrl: currentOption.imageUrl,
-                price: currentOption.price,
-                quantity,
-              };
-          setCart((prevCart) => {
-            let newCart;
-            const itemAlreadyAdded = prevCart.findIndex(
-              (item) =>
-                item.product === itemForBasket.product &&
-                (!itemForBasket.color || item.color === itemForBasket.color)
-            );
-            if (itemAlreadyAdded >= 0) {
-              // item already in cart
-              newCart = prevCart.map((item, i) => {
-                if (i === itemAlreadyAdded) {
-                  return {
-                    ...item,
-                    quantity: item.quantity + itemForBasket.quantity,
-                  };
+      <Link to="/cart">
+        <AddToBasket
+          type="button"
+          onClick={() => {
+            const itemForBasket = currentOption.product
+              ? {
+                  ...currentOption,
+                  inStock: true,
+                  quantity,
                 }
-                return item;
-              });
-            } else {
-              // new to cart
-              newCart = [...prevCart, itemForBasket];
-            }
-            return newCart;
-          });
-        }}
-        disabled={!currentOption.inStock}
-      >
-        Add To Basket
-      </AddToBasket>
+              : {
+                  product,
+                  description,
+                  category,
+                  inStock: true,
+                  color: currentOption.color,
+                  imageUrl: currentOption.imageUrl,
+                  price: currentOption.price,
+                  quantity,
+                };
+            setCart((prevCart) => {
+              let newCart;
+              const itemAlreadyAdded = prevCart.findIndex(
+                (item) =>
+                  item.product === itemForBasket.product &&
+                  (!itemForBasket.color || item.color === itemForBasket.color)
+              );
+              if (itemAlreadyAdded >= 0) {
+                // item already in cart
+                newCart = prevCart.map((item, i) => {
+                  if (i === itemAlreadyAdded) {
+                    return {
+                      ...item,
+                      quantity: item.quantity + itemForBasket.quantity,
+                    };
+                  }
+                  return item;
+                });
+              } else {
+                // new to cart
+                newCart = [...prevCart, itemForBasket];
+              }
+              return newCart;
+            });
+          }}
+          disabled={!currentOption.inStock}
+        >
+          Add To Basket
+        </AddToBasket>
+      </Link>
     </Container>
   );
 };

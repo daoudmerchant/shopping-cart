@@ -1,4 +1,4 @@
-import React, { useState, useHistory } from "react";
+import React, { useState } from "react";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 // components
@@ -32,6 +32,7 @@ const Routes = () => {
         )}
         submitSearch={submitSearch}
         resetSearch={resetSearch}
+        useHistory
       />
       <Switch>
         <Route
@@ -50,7 +51,13 @@ const Routes = () => {
               exact
               path={`/${makeUrlFriendly(item.product)}`}
               key={`route${item.id}`}
-              component={() => <ItemPage item={item} setCart={setCart} />}
+              component={() => (
+                <ItemPage
+                  item={item}
+                  setCart={setCart}
+                  lastItem={cart.length && cart[cart.length - 1]}
+                />
+              )}
             />
           );
         })}

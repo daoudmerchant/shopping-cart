@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, useHistory } from "react-router-dom";
 import styled from "styled-components";
 
 const HeaderBar = styled.header`
@@ -25,6 +25,7 @@ const CartIcon = styled.p`
 `;
 
 const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
+  let history = useHistory();
   const [currentSearch, updateCurrentSearch] = useState("");
 
   const handleSubmit = (e) => {
@@ -32,6 +33,7 @@ const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
     // handle submit search
     const searchText = e.target.firstChild.value;
     submitSearch(searchText);
+    history.push("/");
   };
   return (
     <HeaderBar>
