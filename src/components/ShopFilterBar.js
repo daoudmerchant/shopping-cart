@@ -31,6 +31,10 @@ const OptionsBar = styled.div`
   }
 `;
 
+const Label = styled.label`
+  margin-right: 10px;
+`;
+
 const FilterType = styled.div`
   display: flex;
   justify-content: space-between;
@@ -49,7 +53,7 @@ const ShopFilterBar = ({
   return (
     <OptionsBar id="optionsbar">
       <FilterType id="choosecategory">
-        <label htmlFor="productcategory">Category:</label>
+        <Label htmlFor="productcategory">Category:</Label>
         <select
           id="productcategory"
           onChange={(e) => changeCategory(e.target.value)}
@@ -69,7 +73,7 @@ const ShopFilterBar = ({
         </select>
       </FilterType>
       <FilterType id="toggleview">
-        <label htmlFor="chooseview">View:</label>
+        <Label htmlFor="chooseview">View:</Label>
         <div>
           <input
             type="radio"
@@ -91,7 +95,7 @@ const ShopFilterBar = ({
         </div>
       </FilterType>
       <FilterType id="toggleoos">
-        <label htmlFor="hideoos">Hide out of stock:</label>
+        <Label htmlFor="hideoos">Hide out of stock:</Label>
         <input
           type="checkbox"
           defaultChecked={hideOOS}
@@ -99,7 +103,7 @@ const ShopFilterBar = ({
         />
       </FilterType>
       <FilterType id="chooseorder">
-        <label htmlFor="productorder">Order:</label>
+        <Label htmlFor="productorder">Order:</Label>
         <select
           id="productorder"
           value={viewOrder}
