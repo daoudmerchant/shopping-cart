@@ -1,9 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 
-// helpers
-import { roundPrice } from "../helpers/format";
-
 const Tile = styled.div`
   display: grid;
   grid-template-areas: "image image" "name name" "stock price";

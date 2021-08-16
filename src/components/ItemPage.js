@@ -111,7 +111,6 @@ const ItemPage = ({ item, setCart }) => {
 
   const [currentOption, setCurrentOption] = useState(firstOption);
   const [quantity, setQuantity] = useState(1);
-  const [imageColor, setImageColor] = useState({ filter: "opacity" });
 
   return (
     <Container>
@@ -146,11 +145,24 @@ const ItemPage = ({ item, setCart }) => {
       )}
       <ItemDescription>{description}</ItemDescription>
       <ItemQuantity
-        value={quantity}
+        value={quantity > 0 ? quantity : ""}
         type="number"
         min="1"
-        onChange={(e) => setQuantity(Number(e.target.value))}
+        step="1"
+        onKeyPress={(e) => {
+          if (!/[0-9]/.test(e.key)) {
+            e.preventDefault();
+          }
+        }}
+        onChange={(e) => {
+          setQuantity(Number(e.target.value));
+        }}
         disabled={!currentOption.inStock}
+        onBlur={(e) => {
+          if (e.target.value === "") {
+            setQuantity(1);
+          }
+        }}
       />
       <Link to="/cart" style={{ gridArea: "buy" }}>
         <AddToBasket

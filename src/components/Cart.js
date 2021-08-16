@@ -15,21 +15,45 @@ const EmptyCart = styled.div`
 const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
-  max-width: 1500px;
-  margin: 0 auto;
+
+  max-width: 1200px;
+  margin: 20px;
+
+  @media (min-width: 1240px) {
+    margin: 20px auto;
+  }
 `;
 
 const EmptyCartButton = styled.button`
-  margin-right: auto;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 2rem;
+  // only applies under 630px
+  grid-area: 2 / 1 / span 1 / span 1;
+  @media (min-width: 630px) {
+    margin: 0 auto 0 0;
+    width: auto;
+  }
 `;
 
 const CartTotal = styled.div`
-  display: flex;
-  justify-content: center;
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  grid-gap: 20px;
+
+  & > p {
+    margin-right: 1rem;
+  }
+
+  @media (min-width: 630px) {
+    display: flex;
+    justify-content: center;
+  }
 `;
 
 const GoToCheckout = styled.button`
-  // style
+  padding: 0 2rem;
 `;
 
 const Cart = ({ cart, setCart, resetSearch }) => {
@@ -111,7 +135,12 @@ const Cart = ({ cart, setCart, resetSearch }) => {
       {cart.length ? (
         <CartContainer>
           {cart.map((item, i) => (
-            <CartItem item={item} index={i} modifyQuantity={modifyQuantity} />
+            <CartItem
+              item={item}
+              index={i}
+              key={`cartitem${i}`}
+              modifyQuantity={modifyQuantity}
+            />
           ))}
           <CartTotal>
             <EmptyCartButton onClick={() => setCart([])}>
