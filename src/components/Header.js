@@ -24,18 +24,20 @@ const HeaderBar = styled.header`
 const Logo = styled.h1`
   grid-area: logo;
   margin: 0;
+  margin-left: 30px;
   @media (min-width: 760px) {
     text-align: left;
     width: 20%;
-    margin-left: 20px;
   }
 `;
 
 const SearchBar = styled.form`
   grid-area: search;
   display: flex;
+  margin: 20px 30px 0;
 
   @media (min-width: 760px) {
+    margin-top: 0;
   }
 `;
 
@@ -55,18 +57,17 @@ const SearchButton = styled.button`
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 0 1rem 1rem 0;
   cursor: pointer;
-  background-color: rgb(255, 233, 232);
-  color: rgb(197, 51, 45);
   width: 20%;
 `;
 
 const CartButton = styled.div`
   grid-area: basket;
+  position: relative;
   height: 100%;
-  justify-content: center;
-  background-color: grey;
+  justify-content: right;
   margin: 0;
-  width: ;
+  float: right;
+  margin: 0 50px;
 `;
 
 const CartIcon = styled.img`
@@ -78,9 +79,16 @@ const CartIcon = styled.img`
 `;
 
 const CartCount = styled.p`
-  display: block;
+  font-size: 0.8rem;
+  width: 50px;
+  display: inline-block;
   position: absolute;
-  left: 20px;
+  margin-left: auto;
+  margin-right: auto;
+  left: 7px;
+  right: 0;
+  top: 5px;
+  text-justify: center;
 `;
 
 const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
@@ -96,7 +104,11 @@ const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
   };
   return (
     <HeaderBar>
-      <Link to="/" onClick={resetSearch}>
+      <Link
+        to="/"
+        onClick={resetSearch}
+        style={{ display: "flex", justifyContent: "flex-start" }}
+      >
         <Logo id="logo">TheSwitchZone</Logo>
       </Link>
       <SearchBar id="search" onSubmit={handleSubmit}>
@@ -105,17 +117,21 @@ const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
           value={currentSearch}
           onChange={(e) => updateCurrentSearch(e.target.value)}
         />
-        <SearchButton type="submit">Submit</SearchButton>
+        <SearchButton type="submit">Search</SearchButton>
       </SearchBar>
-      <NavLink
-        to="/cart"
-        activeStyle={{ backgroundColor: "white", color: "rgb(197, 51, 45)" }}
-      >
-        <CartButton>
-          <CartIcon src={cartIcon} alt="Cart Icon" />
-          <CartCount>{cartQuantity}</CartCount>
-        </CartButton>
-      </NavLink>
+      <div style={{ display: "flex", justifyContent: "flex-end" }}>
+        <NavLink
+          to="/cart"
+          activeStyle={{
+            backgroundColor: "rgb(240, 148, 144)",
+          }}
+        >
+          <CartButton>
+            <CartIcon src={cartIcon} alt="Cart Icon" />
+            <CartCount>{cartQuantity < 100 ? cartQuantity : "99+"}</CartCount>
+          </CartButton>
+        </NavLink>
+      </div>
     </HeaderBar>
   );
 };
