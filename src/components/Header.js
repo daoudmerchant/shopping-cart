@@ -36,6 +36,10 @@ const SearchBar = styled.form`
   display: flex;
   margin: 20px 30px 0;
 
+  :hover {
+    box-shadow: none;
+  }
+
   @media (min-width: 760px) {
     margin-top: 0;
   }

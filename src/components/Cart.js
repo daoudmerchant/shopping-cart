@@ -18,9 +18,13 @@ const CartContainer = styled.div`
   margin: 0 auto;
 `;
 
+const EmptyCartButton = styled.button`
+  margin-right: auto;
+`;
+
 const CartTotal = styled.div`
   display: flex;
-  justify-content: flex-end;
+  justify-content: center;
 `;
 
 const GoToCheckout = styled.button`
@@ -109,13 +113,16 @@ const Cart = ({ cart, setCart }) => {
             <CartItem item={item} index={i} modifyQuantity={modifyQuantity} />
           ))}
           <CartTotal>
+            <EmptyCartButton onClick={() => setCart([])}>
+              Empty Cart
+            </EmptyCartButton>
             <p>{`Subtotal (${totalItems} item${
               totalItems > 1 ? "s" : ""
             }):`}</p>
             <p>{`£${roundPrice(totalCost)}`}</p>
             <GoToCheckout
               onClick={() =>
-                alert("I advise you to 'check out' the rest of my projects :)")
+                alert("Feel free to 'check out' the rest of my projects :)")
               }
             >
               To Checkout

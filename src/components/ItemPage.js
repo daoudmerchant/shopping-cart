@@ -15,21 +15,36 @@ const Container = styled.div`
     "description description"
     "quantity buy";
   grid-template-columns: repeat(2, 1fr);
-  position: absolute;
-  top: -50%;
-  left: 50%;
-  transform: translate(-50%, 50%);
+  width: 90%;
+  max-width: 1800px;
+  position: relative;
+  margin: 0 auto;
 
-  @media (min-width: 1120px) {
+  @media (min-height: 840px) and (max-width: 760px) {
+    position: absolute;
+    transform: translate(-50%, -40%);
+    top: 50%;
+    left: 50%;
+  }
+
+  @media (min-height: 730px) and (min-width: 760px) {
+    // header breakpoint
+    position: absolute;
+    transform: translate(-50%, -45%);
+    top: 50%;
+    left: 50%;
+  }
+
+  @media (min-width: 930px) {
+    column-gap: 30px;
     grid-template-areas:
-      "image image name name"
-      "image image category category"
-      "image image stock price"
-      "image image select select"
-      "image image description description"
-      "image image quantity buy";
-    grid-template-columns: repeat(4, 1fr);
-    column-gap: 10px;
+      "image name name"
+      "image category category"
+      "image stock price"
+      "image select select"
+      "image description description"
+      "image quantity buy";
+    grid-template-columns: minmax(min-content, 1fr) repeat(2, 1fr);
   }
 `;
 
@@ -39,7 +54,7 @@ const ItemImage = styled.img`
   grid-area: image;
   margin: 0 auto;
 
-  @media (min-width: 1120px) {
+  @media (min-width: 930px) {
     position: absolute;
     top: 50%;
     left: 50%;
@@ -78,10 +93,14 @@ const ItemQuantity = styled.input`
 `;
 
 const AddToBasket = styled.button`
+  grid-area: buy;
   width: 100%;
   height: 100%;
   padding: 1rem;
-  margin-left: 10px;
+
+  :hover:enabled {
+    box-shadow: 0px 0px 15px 2px rgba(197, 51, 45, 0.71);
+  }
 `;
 
 const ItemPage = ({ item, setCart }) => {
@@ -91,6 +110,8 @@ const ItemPage = ({ item, setCart }) => {
 
   const [currentOption, setCurrentOption] = useState(firstOption);
   const [quantity, setQuantity] = useState(1);
+  const [imageColor, setImageColor] = useState({ filter: "opacity" });
+
   return (
     <Container>
       <ItemImage src={currentOption.imageUrl} alt={product} />
