@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 
 // helpers
-import { makeUrlFriendly } from "../helpers/format";
+import { makeUrlFriendly, roundPrice } from "../helpers/format";
 
 const CartItemContainer = styled.div`
   display: grid;
@@ -110,7 +110,7 @@ const CartItem = ({ item, index, modifyQuantity }) => {
       <CartItemStock style={stockStyle}>
         {inStock ? "In Stock" : "Out of Stock"}
       </CartItemStock>
-      <CartItemPrice>£{price}</CartItemPrice>
+      <CartItemPrice>£{roundPrice(price)}</CartItemPrice>
       <CartItemQuantity>
         <CartItemQuantityButton onClick={() => decreaseQuantity(index)}>
           -
