@@ -57,7 +57,9 @@ const Routes = () => {
         })}
         <Route
           path="/cart"
-          component={() => <Cart cart={cart} setCart={setCart} />}
+          component={() => (
+            <Cart cart={cart} setCart={setCart} resetSearch={resetSearch} />
+          )}
         />
       </Switch>
     </Router>

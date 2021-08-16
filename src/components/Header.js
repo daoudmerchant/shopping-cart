@@ -36,10 +36,6 @@ const SearchBar = styled.form`
   display: flex;
   margin: 20px 30px 0;
 
-  :hover {
-    box-shadow: none;
-  }
-
   @media (min-width: 760px) {
     margin-top: 0;
   }
@@ -47,6 +43,7 @@ const SearchBar = styled.form`
 
 const SearchInput = styled.input`
   padding: 0.5rem;
+  padding-left: 15px;
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 1rem 0 0 1rem;
   width: 80%;
@@ -62,6 +59,10 @@ const SearchButton = styled.button`
   border-radius: 0 1rem 1rem 0;
   cursor: pointer;
   width: 20%;
+
+  &&:hover {
+    box-shadow: none;
+  }
 `;
 
 const CartButton = styled.div`

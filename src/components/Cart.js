@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 
 // helpers
 import { roundPrice } from "../helpers/format";
@@ -8,7 +9,7 @@ import { roundPrice } from "../helpers/format";
 import CartItem from "./CartItem";
 
 const EmptyCart = styled.div`
-  // style
+  margin-top: 50px;
 `;
 
 const CartContainer = styled.div`
@@ -31,7 +32,7 @@ const GoToCheckout = styled.button`
   // style
 `;
 
-const Cart = ({ cart, setCart }) => {
+const Cart = ({ cart, setCart, resetSearch }) => {
   const modifyQuantity = (() => {
     const deleteItem = (index) => {
       setCart((prevCart) => {
@@ -132,6 +133,9 @@ const Cart = ({ cart, setCart }) => {
       ) : (
         <EmptyCart>
           <p>Your cart is empty!</p>
+          <Link to="/">
+            <button onClick={resetSearch}>Back to shop</button>
+          </Link>
         </EmptyCart>
       )}
     </div>

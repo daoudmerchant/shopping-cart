@@ -5,9 +5,10 @@ const OptionsBar = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   position: relative;
-  margin-bottom: 30px;
+  margin: 0 auto 30px;
+  max-width: 1500px;
 
-  @media (min-width: 760px) {
+  @media (min-width: 920px) {
     display: flex;
     justify-content: space-between;
   }
@@ -57,6 +58,7 @@ const ShopFilterBar = ({
         <select
           id="productcategory"
           onChange={(e) => changeCategory(e.target.value)}
+          style={{ width: "150px" }}
         >
           <option defaultValue="all" value="all" name="category">
             All

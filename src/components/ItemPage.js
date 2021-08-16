@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { capitalise } from "../helpers/format";
+
+import { capitalise, roundPrice } from "../helpers/format";
 
 const Container = styled.div`
   display: grid;
@@ -80,6 +81,10 @@ const ItemPrice = styled.p`
 
 const ItemOption = styled.select`
   grid-area: select;
+  width: 100%;
+  max-width: 500px;
+  margin: 0 auto;
+  padding: 0.5rem;
 `;
 
 const ItemDescription = styled.p`
@@ -97,10 +102,6 @@ const AddToBasket = styled.button`
   width: 100%;
   height: 100%;
   padding: 1rem;
-
-  :hover:enabled {
-    box-shadow: 0px 0px 15px 2px rgba(197, 51, 45, 0.71);
-  }
 `;
 
 const ItemPage = ({ item, setCart }) => {
@@ -122,7 +123,7 @@ const ItemPage = ({ item, setCart }) => {
       >
         {currentOption.inStock ? "In Stock" : "Out of Stock"}
       </ItemStock>
-      <ItemPrice>{`£${currentOption.price}`}</ItemPrice>
+      <ItemPrice>{`£${roundPrice(currentOption.price)}`}</ItemPrice>
       {item.options && (
         <ItemOption
           value={currentOption.color}
