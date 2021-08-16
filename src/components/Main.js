@@ -25,7 +25,7 @@ const TileGrid = styled.div`
   // TODO: change / remove max width?
   max-width: 1800px;
 
-  @media (min-width: 720px) {
+  @media (min-width: 780px) {
     grid-template-columns: repeat(2, 1fr);
   }
 

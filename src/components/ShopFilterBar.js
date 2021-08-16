@@ -4,11 +4,13 @@ import styled from "styled-components";
 const OptionsBar = styled.div`
   display: grid;
   grid-template-columns: repeat(2, 1fr);
+  align-items: center;
   position: relative;
   margin: 0 auto 30px;
+  padding: 0 10px;
   max-width: 1500px;
 
-  @media (min-width: 920px) {
+  @media (min-width: 1000px) {
     display: flex;
     justify-content: space-between;
   }
@@ -33,13 +35,13 @@ const OptionsBar = styled.div`
 `;
 
 const Label = styled.label`
-  margin-right: 10px;
+  margin-right: 5px;
 `;
 
 const FilterType = styled.div`
   display: flex;
   justify-content: space-between;
-  margin: 5px 20px;
+  margin: 5px 10px;
 `;
 
 const ShopFilterBar = ({
@@ -58,7 +60,7 @@ const ShopFilterBar = ({
         <select
           id="productcategory"
           onChange={(e) => changeCategory(e.target.value)}
-          style={{ width: "150px" }}
+          style={{ width: "100px" }}
         >
           <option defaultValue="all" value="all" name="category">
             All

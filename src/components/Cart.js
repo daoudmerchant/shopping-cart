@@ -41,6 +41,7 @@ const CartTotal = styled.div`
   grid-template-columns: repeat(2, 1fr);
   grid-template-rows: repeat(2, 1fr);
   grid-gap: 20px;
+  margin-bottom: 20px;
 
   & > p {
     margin-right: 1rem;
@@ -54,6 +55,7 @@ const CartTotal = styled.div`
 
 const GoToCheckout = styled.button`
   padding: 0 2rem;
+  border: 2px solid rgb(197, 51, 45);
 `;
 
 const Cart = ({ cart, setCart, resetSearch }) => {
@@ -161,7 +163,7 @@ const Cart = ({ cart, setCart, resetSearch }) => {
         </CartContainer>
       ) : (
         <EmptyCart>
-          <p>Your cart is empty!</p>
+          <p style={{ marginBottom: "20px" }}>Your cart is empty!</p>
           <Link to="/">
             <button onClick={resetSearch}>Back to shop</button>
           </Link>

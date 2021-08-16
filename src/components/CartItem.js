@@ -1,11 +1,16 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
+
+// helpers
+import { makeUrlFriendly } from "../helpers/format";
 
 const CartItemContainer = styled.div`
   display: grid;
   padding: 20px;
   position: relative;
   grid-template-areas:
+    "image name name"
     "image name name"
     "image stock price"
     "image quantity remove";
@@ -14,7 +19,7 @@ const CartItemContainer = styled.div`
   grid-column-gap: 20px;
   border: 1px solid black;
   border-radius: 5px;
-  height: 200px;
+  height: 250px;
   margin-bottom: 20px;
 
   @media (min-width: 750px) {
@@ -31,8 +36,11 @@ const CartItemImage = styled.img`
   transform: translate(-50%, -50%);
 `;
 
-const CartItemName = styled.h2`
+const CartItemName = styled.div`
   grid-area: name;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 
 const CartItemStock = styled.p`
@@ -93,8 +101,12 @@ const CartItem = ({ item, index, modifyQuantity }) => {
 
   return (
     <CartItemContainer>
-      <CartItemImage src={imageUrl} alt={product} />
-      <CartItemName>{product}</CartItemName>
+      <Link key={`link${item.id}`} to={`/${makeUrlFriendly(product)}`}>
+        <CartItemImage src={imageUrl} alt={product} />
+      </Link>
+      <CartItemName>
+        <h2>{product}</h2>
+      </CartItemName>
       <CartItemStock style={stockStyle}>
         {inStock ? "In Stock" : "Out of Stock"}
       </CartItemStock>

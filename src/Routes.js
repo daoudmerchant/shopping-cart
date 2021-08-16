@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
 // components
 import Header from "./components/Header";
@@ -24,7 +24,7 @@ const Routes = () => {
   const resetSearch = () => setJustSearched(false);
 
   return (
-    <Router>
+    <Router basename={`${process.env.PUBLIC_URL}/shopping-cart/`}>
       <Header
         cartQuantity={cart.reduce(
           (accumulator, item) => accumulator + item.quantity,
