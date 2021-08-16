@@ -1,0 +1,37 @@
+{
+  "files": {
+    "main.css": "/shopping-cart/static/css/main.63ee16bc.chunk.css",
+    "main.js": "/shopping-cart/static/js/main.2fa5790b.chunk.js",
+    "main.js.map": "/shopping-cart/static/js/main.2fa5790b.chunk.js.map",
+    "runtime-main.js": "/shopping-cart/static/js/runtime-main.e2f9aa8b.js",
+    "runtime-main.js.map": "/shopping-cart/static/js/runtime-main.e2f9aa8b.js.map",
+    "static/js/2.4d05bed0.chunk.js": "/shopping-cart/static/js/2.4d05bed0.chunk.js",
+    "static/js/2.4d05bed0.chunk.js.map": "/shopping-cart/static/js/2.4d05bed0.chunk.js.map",
+    "index.html": "/shopping-cart/index.html",
+    "static/css/main.63ee16bc.chunk.css.map": "/shopping-cart/static/css/main.63ee16bc.chunk.css.map",
+    "static/js/2.4d05bed0.chunk.js.LICENSE.txt": "/shopping-cart/static/js/2.4d05bed0.chunk.js.LICENSE.txt",
+    "static/media/animal_crossing.jpg": "/shopping-cart/static/media/animal_crossing.13449982.jpg",
+    "static/media/breath_of_the_wild.jpg": "/shopping-cart/static/media/breath_of_the_wild.4a529207.jpg",
+    "static/media/cart-icon.81a82109.png": "/shopping-cart/static/media/cart-icon.81a82109.png",
+    "static/media/joy_con_grey.jpg": "/shopping-cart/static/media/joy_con_grey.01abe400.jpg",
+    "static/media/joy_con_neon_red_blue.jpg": "/shopping-cart/static/media/joy_con_neon_red_blue.cef52300.jpg",
+    "static/media/luigi_s_mansion_3.jpg": "/shopping-cart/static/media/luigi_s_mansion_3.17a072ec.jpg",
+    "static/media/mario_odyssey.jpg": "/shopping-cart/static/media/mario_odyssey.33c362db.jpg",
+    "static/media/new_super_mario_bros_u.jpg": "/shopping-cart/static/media/new_super_mario_bros_u.11a14aa6.jpg",
+    "static/media/pikmin_3.jpg": "/shopping-cart/static/media/pikmin_3.dc10f139.jpg",
+    "static/media/super_smash_bros.jpg": "/shopping-cart/static/media/super_smash_bros.6cb7cd19.jpg",
+    "static/media/switch_grey.jpg": "/shopping-cart/static/media/switch_grey.39138f24.jpg",
+    "static/media/switch_lite_blue.jpg": "/shopping-cart/static/media/switch_lite_blue.d5aee3b8.jpg",
+    "static/media/switch_lite_coral.jpg": "/shopping-cart/static/media/switch_lite_coral.39c8dc0e.jpg",
+    "static/media/switch_lite_grey.jpg": "/shopping-cart/static/media/switch_lite_grey.4c3ed0a5.jpg",
+    "static/media/switch_lite_turquoise.jpg": "/shopping-cart/static/media/switch_lite_turquoise.02a8a08d.jpg",
+    "static/media/switch_lite_yellow.jpg": "/shopping-cart/static/media/switch_lite_yellow.f6f33919.jpg",
+    "static/media/switch_neon_red_blue.jpg": "/shopping-cart/static/media/switch_neon_red_blue.6ea418c8.jpg"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.e2f9aa8b.js",
+    "static/js/2.4d05bed0.chunk.js",
+    "static/css/main.63ee16bc.chunk.css",
+    "static/js/main.2fa5790b.chunk.js"
+  ]
+}
