@@ -98,7 +98,7 @@ const ItemQuantity = styled.input`
   margin-right: 10px;
 `;
 
-const AddToBasket = styled.button`
+const AddToCart = styled.button`
   width: 100%;
   height: 100%;
   padding: 1rem;
@@ -165,10 +165,10 @@ const ItemPage = ({ item, setCart }) => {
         }}
       />
       <Link to="/cart" style={{ gridArea: "buy" }}>
-        <AddToBasket
+        <AddToCart
           type="button"
           onClick={() => {
-            const itemForBasket = currentOption.product
+            const itemForCart = currentOption.product
               ? {
                   ...currentOption,
                   inStock: true,
@@ -188,8 +188,8 @@ const ItemPage = ({ item, setCart }) => {
               let newCart;
               const itemAlreadyAdded = prevCart.findIndex(
                 (item) =>
-                  item.product === itemForBasket.product &&
-                  (!itemForBasket.color || item.color === itemForBasket.color)
+                  item.product === itemForCart.product &&
+                  (!itemForCart.color || item.color === itemForCart.color)
               );
               if (itemAlreadyAdded >= 0) {
                 // item already in cart
@@ -197,22 +197,22 @@ const ItemPage = ({ item, setCart }) => {
                   if (i === itemAlreadyAdded) {
                     return {
                       ...item,
-                      quantity: item.quantity + itemForBasket.quantity,
+                      quantity: item.quantity + itemForCart.quantity,
                     };
                   }
                   return item;
                 });
               } else {
                 // new to cart
-                newCart = [...prevCart, itemForBasket];
+                newCart = [...prevCart, itemForCart];
               }
               return newCart;
             });
           }}
           disabled={!currentOption.inStock}
         >
-          Add To Basket
-        </AddToBasket>
+          Add To Cart
+        </AddToCart>
       </Link>
     </Container>
   );

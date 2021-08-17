@@ -88,7 +88,7 @@ const CartItemRemove = styled.button`
 `;
 
 const CartItem = ({ item, index, modifyQuantity }) => {
-  const { product, inStock, imageUrl, price, quantity } = item;
+  const { product, color, inStock, imageUrl, price, quantity } = item;
   const { increaseQuantity, decreaseQuantity, setQuantity } = modifyQuantity;
   const [currentQuantity, setCurrentQuantity] = useState(quantity);
 
@@ -104,7 +104,7 @@ const CartItem = ({ item, index, modifyQuantity }) => {
         <CartItemImage src={imageUrl} alt={product} />
       </Link>
       <CartItemName>
-        <h2>{product}</h2>
+        <h2>{`${product}${color ? ` - ${color}` : ""}`}</h2>
       </CartItemName>
       <CartItemStock style={stockStyle}>
         {inStock ? "In Stock" : "Out of Stock"}

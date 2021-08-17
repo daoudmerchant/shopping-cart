@@ -1,70 +1,78 @@
-# Getting Started with Create React App
+# [Live Demo](https://daoudmerchant.github.io/shopping-cart)
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+## Brief
 
-## Available Scripts
+To create a simple shopping website in React using React Router to use URLs to navigate
 
-In the project directory, you can run:
+## Thoughts before beginning
 
-### `npm start`
+I'm going to set myself a few different additional challenges:
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- Basic storefront sorting
+- Basic search
+- Use of `styled-components` package
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Thoughts after finishing
 
-### `npm test`
+Right... Well, as always, I feel I could work on this one forever! There are things I'm proud of and things I know could be done better.
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+### Successes
 
-### `npm run build`
+- Item pages are assigned separate URLs programatically (updating the `inventory` will automatically generate a new item page)
+- (Mostly) adaptive to all screen sizes/orientations (room for improvement)
+- Use of `styled-components` avoids many messy declared style objects
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+### Room for improvement (were time infinite...)
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+#### Theming (very basic red theme could be improved / supplemented with custom svg graphics etc.)
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+I could have spent much more time on the theme, but graphic design is a discipline in itself and I want to advance with my JS knowledge.
 
-### `npm run eject`
+#### Product page
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+This is very bare, normally there'd be related products, reviews...
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+#### Code related to options
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+As the only form of option on the site is color (and accommodating options was already beyond the initial scope of the exercise), my code refers to `color` specifically, but there could be all kinds of options... Say, for example, the games were available digitally or physically, the code should find whatever additional key the `option` object contains and use that to generate the drop-down and product pages.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+#### Routing
 
-## Learn More
+My search is super basic, but one of the many things I should do to flesh it out is generate URLs based on search (e.g. `shopping-cart/search?super+mario`), but this is so much to do with server-side logic I don't understand (not to mention the lack of fuzzy search) that whatever solution I came up with would be 'faking it' (as it is, my `justSearched` solution to keep search text constant in the header without always applying to the page is less than elegant).
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+As things stand, I think it a better user experience to go to the cart upon 'Add to Cart', but were the browser to remain on the item page, anything `<select>` would currently reset to the first `<option>` upon rerender. I guess the solution would be to have separate URLs for every option (which would improve the experience in terms of URL navigation), but this would force a rerender on every option change affecting performance... Again, this is one of the problems best attacked when I understand server-side logic.
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+I'm also aware that every choice in the `ShopFilterBar` could also be 'baked' in to the URL, but again, this is way beyond the scope of the exercise!
 
-### Code Splitting
+#### Image loading
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+Once again, one image size for all scenarios (far too large a file size for the smaller rendering scenarios), popping in on load... `srcset` and more elegant image loading would be a priority were I preparing this site for real deployment!
 
-### Analyzing the Bundle Size
+#### State management
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+I'm aware that every time state is altered, the element and all of its children are rerendered (even if the child's `props` remain the same, it can't be memoised because the parent itself is rerendering), but this led to various problems... In `Routes.js`, it made sense to have:
 
-### Making a Progressive Web App
+```jsx
+// simplified
+<Router>
+  <Header />
+  <Switch>
+    <Route path="/" component={Main} />
+    {inventory.map((item) => {
+      return (
+        <Route
+          path={`/${itemUrl}`}
+          component={() => <ItemPage item={item} />}
+        />
+      );
+    })}
+    <Route path="/cart" component={Cart} />
+  </Switch>
+</Router>
+```
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+But the problem here is that `Header` needs access to the cart to know what number to display on the cart icon as well as the `Cart` element, and if the search box in the `Header` needs to pass the information to `Main` then _that_ needs to be stored in a parent... As a result, `Routes` ended up storing cart and search logic which had nothing to do with it! The only solution I could think of would be to store the logic _above_ `Routes`, or rather outside of it, which I guess is the basis for Redux (I saw some other student solutions use it). As I was already fearing biting off more than I could chew, I decided to leave learning Redux for my learning 'to do' list. I definitely want to implement it in a future project!
 
-### Advanced Configuration
+#### Props handling
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
-
-### Deployment
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
-
-### `npm run build` fails to minify
-
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+There's some refactoring to be done when I better understand `useContext` to remove some of the props drilling.
