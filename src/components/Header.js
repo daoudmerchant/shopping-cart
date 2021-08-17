@@ -25,6 +25,7 @@ const Logo = styled.h1`
   grid-area: logo;
   margin: 0;
   margin-left: 30px;
+
   @media (min-width: 760px) {
     text-align: left;
     width: 20%;
@@ -84,16 +85,16 @@ const CartIcon = styled.img`
 `;
 
 const CartCount = styled.p`
+  text-justify: center;
   font-size: 0.8rem;
   width: 50px;
-  display: inline-block;
   position: absolute;
   margin-left: auto;
   margin-right: auto;
+
+  // adjust to fit inside of cart icon
   left: 7px;
-  right: 0;
   top: 5px;
-  text-justify: center;
 `;
 
 const Header = ({ submitSearch, resetSearch, cartQuantity }) => {

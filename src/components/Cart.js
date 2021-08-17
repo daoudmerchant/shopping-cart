@@ -15,7 +15,6 @@ const EmptyCart = styled.div`
 const CartContainer = styled.div`
   display: flex;
   flex-direction: column;
-
   max-width: 1200px;
   margin: 20px;
 
@@ -28,8 +27,10 @@ const EmptyCartButton = styled.button`
   margin: 0 auto;
   width: 100%;
   padding: 0 2rem;
-  // only applies under 630px
+
+  // only applies under 630px (grid)
   grid-area: 2 / 1 / span 1 / span 1;
+
   @media (min-width: 630px) {
     margin: 0 auto 0 0;
     width: auto;

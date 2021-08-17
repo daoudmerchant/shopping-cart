@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 
+// helpers
 import { capitalise, roundPrice } from "../helpers/format";
 
 const Container = styled.div`
@@ -98,7 +99,6 @@ const ItemQuantity = styled.input`
 `;
 
 const AddToBasket = styled.button`
-  grid-area: buy;
   width: 100%;
   height: 100%;
   padding: 1rem;

@@ -4,6 +4,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { makeUrlFriendly } from "../helpers/format";
 
+// helpers
+import organise from "../helpers/organise";
+import { roundPrice } from "../helpers/format";
+
 // resources
 import inventory from "../inventory";
 
@@ -11,10 +15,6 @@ import inventory from "../inventory";
 import ShopFilterBar from "./ShopFilterBar";
 import ListItem from "./ListItem";
 import EmptySearch from "./EmptySearch";
-
-// tools
-import organise from "../helpers/organise";
-import { roundPrice } from "../helpers/format";
 
 const TileGrid = styled.div`
   display: grid;
@@ -42,7 +42,6 @@ const RowTable = styled.div`
   display: flex;
   flex-direction: column;
   margin: 10px auto;
-
   max-width: 1800px;
 `;
 
@@ -84,7 +83,6 @@ const Main = ({ searchText, resetSearch }) => {
 
   // // update if search submitted
   if (searchText && searchText !== lastSearch) {
-    // FIX: Search same text second time after changing category
     setLastSearch(searchText);
     const searchRexExp = new RegExp(searchText, "i");
     const searchView = {
@@ -165,7 +163,7 @@ const Main = ({ searchText, resetSearch }) => {
     });
   };
 
-  // render conditions
+  // grid or list view
   const ItemContainer = isGrid ? TileGrid : RowTable;
 
   return (

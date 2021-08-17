@@ -116,10 +116,10 @@ const ShopFilterBar = ({
         >
           <option value="defaultOrder">Default</option>
           <option value="ascendingPrice" name="order">
-            Price (lowest to highest)
+            Price (ascending)
           </option>
           <option value="descendingPrice" name="order">
-            Price (highest to lowest)
+            Price (descending)
           </option>
         </select>
       </FilterType>

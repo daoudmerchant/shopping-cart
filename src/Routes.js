@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import { HashRouter as Router, Switch, Route } from "react-router-dom";
 
+// helpers
+import { makeUrlFriendly } from "./helpers/format";
+
 // components
 import Header from "./components/Header";
 import Main from "./components/Main";
 import ItemPage from "./components/ItemPage";
 import Cart from "./components/Cart";
 import inventory from "./inventory";
-
-import { makeUrlFriendly } from "./helpers/format";
 
 const Routes = () => {
   // cart logic
@@ -24,7 +25,7 @@ const Routes = () => {
   const resetSearch = () => setJustSearched(false);
 
   return (
-    <Router basename={`${process.env.PUBLIC_URL}/shopping-cart/`}>
+    <Router>
       <Header
         cartQuantity={cart.reduce(
           (accumulator, item) => accumulator + item.quantity,

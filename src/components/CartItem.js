@@ -6,9 +6,9 @@ import { Link } from "react-router-dom";
 import { makeUrlFriendly, roundPrice } from "../helpers/format";
 
 const CartItemContainer = styled.div`
+  position: relative;
   display: grid;
   padding: 20px;
-  position: relative;
   grid-template-areas:
     "image name name"
     "image name name"
@@ -21,15 +21,14 @@ const CartItemContainer = styled.div`
   border-radius: 5px;
   height: 250px;
   margin-bottom: 20px;
-
-  @media (min-width: 750px) {
-  }
 `;
 
 const CartItemImage = styled.img`
   grid-area: image;
   max-height: 100%;
   max-width: 100%;
+
+  // TODO: Replace with flex-based solution?
   position: absolute;
   top: 50%;
   left: 50%;
@@ -121,13 +120,14 @@ const CartItem = ({ item, index, modifyQuantity }) => {
           value={currentQuantity}
           onChange={(e) => setCurrentQuantity(e.target.value)}
           onKeyPress={(e) => {
+            // only allow digit keyboard inputs
             if (!/[0-9]/.test(e.key)) {
               e.preventDefault();
             }
           }}
           onBlur={() => {
             if (currentQuantity < 0) {
-              // minus number (why did they do that??)
+              // minus number (minus key not permitted so only if user pastes in a minus number (why???))
               removeItem();
             }
             setQuantity(index, Number(currentQuantity));
