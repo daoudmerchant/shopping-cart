@@ -28,7 +28,21 @@ const Logo = styled.h1`
 
   @media (min-width: 760px) {
     text-align: left;
-    width: 20%;
+    width: 6rem;
+  }
+`;
+
+const SmallLogo = styled(Logo)`
+  display: block;
+  @media (min-width: 360px) {
+    display: none;
+  }
+`;
+
+const BigLogo = styled(Logo)`
+  display: none;
+  @media (min-width: 360px) {
+    display: block;
   }
 `;
 
@@ -59,7 +73,8 @@ const SearchButton = styled.button`
   border: 1px solid rgba(0, 0, 0, 0);
   border-radius: 0 1rem 1rem 0;
   cursor: pointer;
-  width: 20%;
+  min-width: 6rem;
+  width: 20%
 
   &&:hover {
     box-shadow: none;
@@ -70,10 +85,10 @@ const CartButton = styled.div`
   grid-area: basket;
   position: relative;
   height: 100%;
+  width: 6rem;
   justify-content: right;
   margin: 0;
   float: right;
-  margin: 0 50px;
 `;
 
 const CartIcon = styled.img`
@@ -93,7 +108,7 @@ const CartCount = styled.p`
   margin-right: auto;
 
   // adjust to fit inside of cart icon
-  left: 7px;
+  left: 28px;
   top: 5px;
 `;
 
@@ -115,7 +130,8 @@ const Header = ({ submitSearch, resetSearch, cartQuantity }) => {
         onClick={resetSearch}
         style={{ display: "flex", justifyContent: "flex-start" }}
       >
-        <Logo id="logo">TheSwitchZone</Logo>
+        <SmallLogo>TSZ</SmallLogo>
+        <BigLogo>TheSwitchZone</BigLogo>
       </Link>
       <SearchBar id="search" onSubmit={handleSubmit}>
         <SearchInput
