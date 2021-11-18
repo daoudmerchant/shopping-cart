@@ -17,7 +17,12 @@ const Row = styled.div`
   display: grid;
   grid-template-areas: "image name stock price";
   grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: minmax(120px, 1fr);
   align-items: center;
+  margin: 0 10px;
+  & > * {
+    margin: 0 5px;
+  }
 `;
 
 const ItemImg = styled.img`
